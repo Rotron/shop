@@ -1,0 +1,12 @@
+  .cart-empty{
+    color: #3d3d3d;
+    font-size: 28px;
+    font-weight: 500 !important;
+    letter-spacing: -1px;
+  }
+  .owl-item img{
+    max-width: 433px;
+  }
+  .gallery-thumbs img{
+    max-width: 67px; 
+  }
