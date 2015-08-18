@@ -1,6 +1,6 @@
 <?php
 
-class AdminPackegeController extends AdminController
+class AdminOperatorController extends AdminController
 {
     public function index()
     {

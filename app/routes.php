@@ -94,6 +94,48 @@ Route::group(array('prefix' => 'admin'), function()
     Route::any('tmpDelete', 'AdminImageController@postTmpDelete');
     Route::any('upload/{dir?}', 'AdminImageController@postUpload');
     Route::any('delete/{dir?}', 'AdminImageController@postDelete');
+
+    Route::get('tv-channel', 'AdminTvChannelController@index');
+    Route::get('tv-channel/add', 'AdminTvChannelController@add');
+    Route::get('tv-channel/{id}/edit', 'AdminTvChannelController@edit');
+    Route::post('tv-channel/add', 'AdminTvChannelController@postAdd');
+    Route::post('tv-channel/{id}/edit', 'AdminTvChannelController@postEdit');
+    Route::post('tv-channel/delete', 'AdminTvChannelController@postDelete');
+
+    Route::get('transponder', 'AdminTransponderController@index');
+    Route::get('transponder/add', 'AdminTransponderController@add');
+    Route::get('transponder/{id}/edit', 'AdminTransponderController@edit');
+    Route::post('transponder/add', 'AdminTransponderController@postAdd');
+    Route::post('transponder/{id}/edit', 'AdminTransponderController@postEdit');
+    Route::post('transponder/delete', 'AdminTransponderController@postDelete');
+
+    Route::get('system-encryption', 'AdminSystemEncryptionController@index');
+    Route::get('system-encryption/add', 'AdminSystemEncryptionController@add');
+    Route::get('system-encryption/{id}/edit', 'AdminSystemEncryptionController@edit');
+    Route::post('system-encryption/add', 'AdminSystemEncryptionController@postAdd');
+    Route::post('system-encryption/{id}/edit', 'AdminSystemEncryptionController@postEdit');
+    Route::post('system-encryption/delete', 'AdminSystemEncryptionController@postDelete');
+
+    Route::get('packege', 'AdminPackegeController@index');
+    Route::get('packege/add', 'AdminPackegeController@add');
+    Route::get('packege/{id}/edit', 'AdminPackegeController@edit');
+    Route::post('packege/add', 'AdminPackegeController@postAdd');
+    Route::post('packege/{id}/edit', 'AdminPackegeController@postEdit');
+    Route::post('packege/delete', 'AdminPackegeController@postDelete');
+
+    Route::get('operator', 'AdminOperatorController@index');
+    Route::get('operator/add', 'AdminOperatorController@add');
+    Route::get('operator/{id}/edit', 'AdminOperatorController@edit');
+    Route::post('operator/add', 'AdminOperatorController@postAdd');
+    Route::post('operator/{id}/edit', 'AdminOperatorController@postEdit');
+    Route::post('operator/delete', 'AdminOperatorController@postDelete');
+
+    Route::get('satellite', 'AdminSatelliteController@index');
+    Route::get('satellite/add', 'AdminSatelliteController@add');
+    Route::get('satellite/{id}/edit', 'AdminSatelliteController@edit');
+    Route::post('satellite/add', 'AdminSatelliteController@postAdd');
+    Route::post('satellite/{id}/edit', 'AdminSatelliteController@postEdit');
+    Route::post('satellite/delete', 'AdminSatelliteController@postDelete');
 });
 
 Route::group(array('prefix' => 'cart'), function()
