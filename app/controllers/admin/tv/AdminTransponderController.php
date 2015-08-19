@@ -20,8 +20,10 @@ class AdminTransponderController extends AdminController
     {
         $rules = array(
             'satellite_id' => 'required',
-            'frequency_beam' => 'required|min:6|max:7',
-            'sr_fec' => 'required|min:8|max:9',
+            'frequency' => 'required|min:4|max:5',
+            'polarization' => 'required',
+            'sr' => 'required|min:4|max:5',
+            'fec' => 'required',
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -35,8 +37,10 @@ class AdminTransponderController extends AdminController
 
         $table = new Transponder;
         $table->satellite_id = Input::get('satellite_id');
-        $table->frequency_beam = Input::get('frequency_beam');
-        $table->sr_fec = Input::get('sr_fec');
+        $table->frequency = Input::get('frequency');
+        $table->polarization = Input::get('polarization');
+        $table->sr = Input::get('sr');
+        $table->fec = Input::get('fec');
 
         if ($table->save()) {
             return Redirect::to("admin/transponder")->with('success', trans("message.add"));
@@ -57,8 +61,10 @@ class AdminTransponderController extends AdminController
     {
         $rules = array(
             'satellite_id' => 'required',
-            'frequency_beam' => 'required|min:6|max:7',
-            'sr_fec' => 'required|min:8|max:9',            
+            'frequency' => 'required|min:4|max:5',
+            'polarization' => 'required',
+            'sr' => 'required|min:4|max:5',
+            'fec' => 'required',
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -74,8 +80,10 @@ class AdminTransponderController extends AdminController
 
         $table = Transponder::find($id);
         $table->satellite_id = Input::get('satellite_id');
-        $table->frequency_beam = Input::get('frequency_beam');
-        $table->sr_fec = Input::get('sr_fec');
+        $table->frequency = Input::get('frequency');
+        $table->polarization = Input::get('polarization');
+        $table->sr = Input::get('sr');
+        $table->fec = Input::get('fec');
 
         if ($table->save()) {
             return Redirect::to("admin/transponder")->with('success', trans("message.adit"));

@@ -18,7 +18,9 @@
                 <tr>
                     <th>ID</th>
                     <th>Спутник</th>
-                    <th>Частота и поляризация</th>
+                    <th>Частота</th>
+                    <th>Поляризация</th>
+                    <th>Скорость потока</th>
                     <th>FEC</th>
                 </tr>
             </thead>
@@ -28,8 +30,10 @@
                 <tr class="fields">
                     <td>{{ $item->id }}</td>
                     <td>{{ $satellites[$item->satellite_id] }}</td>
-                    <td>{{ $item->frequency_beam }}</td>
-                    <td>{{ $item->sr_fec }}</td>
+                    <td>{{ $item->frequency }}</td>
+                    <td>{{ Transponder::POLARIZATION[$item->polarization] }}</td>
+                    <td>{{ $item->sr }}</td>
+                    <td>{{ Transponder::FEC[$item->fec] }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -38,7 +42,9 @@
                 <tr>
                     <th>ID</th>
                     <th>Спутник</th>
-                    <th>Частота и поляризация</th>
+                    <th>Частота</th>
+                    <th>Поляризация</th>
+                    <th>Скорость потока</th>
                     <th>FEC</th>
                 </tr>
             </tfoot>

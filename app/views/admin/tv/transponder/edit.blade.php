@@ -16,19 +16,31 @@
                           <div class="form-group has-error"><label><i class="fa fa-times-circle-o"></i> {{ $error }}</label></div>
                       @endforeach
                     @endif
-                    <div class="form-group {{ $errors->first('satellites_id') ? 'has-error' : '' }}">
-                        {{ Form::label('satellites_id', 'Спутник')}}
-                        {{ Form::select('satellites_id', Satellite::all(), null, ['class' => 'form-control', 'placeholder' => 'Amos 2/3']); }}
-                    </div>
-                    <div class="form-group {{ $errors->first('frequency_beam') ? 'has-error' : '' }}">
-                        {{ Form::label('frequency_beam', 'Частота и поляризация') }}
-                        {{ Form::text('frequency_beam', $item->frequency_beam, ['class' => 'form-control', 'placeholder' => '10722 H']) }}
+                    <div class="form-group {{ $errors->first('satellite_id') ? 'has-error' : '' }}">
+                        {{ Form::label('satellite_id', 'Спутник')}}
+                        {{ Form::select('satellite_id', Satellite::lists('name', 'id'), $item->satellite_id, ['class' => 'form-control', 'placeholder' => 'Amos 2/3']); }}
                     </div>
 
-                    <div class="form-group {{ $errors->first('sr_fec') ? 'has-error' : '' }}">
-                        {{ Form::label('sr_fec', 'Скорость потока и FEC') }}
-                        {{ Form::text('sr_fec',  $item->sr_fec, ['class' => 'form-control', 'placeholder' => '27500-3/4']) }}
+                    <div class="form-group {{ $errors->first('frequency') ? 'has-error' : '' }}">
+                        {{ Form::label('frequency', 'Частота и поляризация') }}
+                        {{ Form::text('frequency', $item->frequency, ['class' => 'form-control', 'placeholder' => '10722 H']) }}
                     </div>
+
+                    <div class="form-group {{ $errors->first('polarization') ? 'has-error' : '' }}">
+                        {{ Form::label('polarization', 'Поляризация')}}
+                        {{ Form::select('polarization', Transponder::POLARIZATION, $item->polarization, ['class' => 'form-control']); }}
+                    </div>
+
+                    <div class="form-group {{ $errors->first('sr') ? 'has-error' : '' }}">
+                        {{ Form::label('sr', 'Скорость потока') }}
+                        {{ Form::text('sr',  $item->sr, ['class' => 'form-control', 'placeholder' => '27500-3/4']) }}
+                    </div>
+
+                    <div class="form-group {{ $errors->first('fec') ? 'has-error' : '' }}">
+                        {{ Form::label('fec', 'FEC')}}
+                        {{ Form::select('fec', Transponder::FEC, $item->fec, ['class' => 'form-control']); }}
+                    </div>
+
                 </div><!-- /.box-body -->
 
                 <div class="box-footer">

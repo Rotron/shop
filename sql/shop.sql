@@ -624,13 +624,15 @@ DROP TABLE IF EXISTS `transponders`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `transponders` (
   `id` int(7) NOT NULL AUTO_INCREMENT,
-  `frequency_beam` varchar(7) NOT NULL,
-  `sr_fec` varchar(9) NOT NULL,
+  `frequency` int(5) NOT NULL,
+  `sr` int(5) NOT NULL,
   `satellite_id` int(11) NOT NULL,
+  `fec` tinyint(1) NOT NULL,
+  `polarization` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`,`satellite_id`),
   KEY `fk_transponders_satellites1_idx` (`satellite_id`),
   CONSTRAINT `fk_transponders_satellites1` FOREIGN KEY (`satellite_id`) REFERENCES `satellites` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -639,7 +641,7 @@ CREATE TABLE `transponders` (
 
 LOCK TABLES `transponders` WRITE;
 /*!40000 ALTER TABLE `transponders` DISABLE KEYS */;
-INSERT INTO `transponders` VALUES (1,'10722 H','27500-4/3',2),(2,'12722 H','27500-4/3',1);
+INSERT INTO `transponders` VALUES (1,10722,27500,1,2,0),(2,10759,30000,1,2,0),(3,10806,30000,1,2,0),(4,11012,6666,1,1,0),(5,10889,11570,1,1,0);
 /*!40000 ALTER TABLE `transponders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -828,4 +830,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-18 23:08:00
+-- Dump completed on 2015-08-19 22:28:14
