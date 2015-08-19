@@ -1,7 +1,7 @@
 /bootstrap/compiled.php
 
-.env.php
 .env.local.php
+.env.php
 
 .DS_Store
 Thumbs.db

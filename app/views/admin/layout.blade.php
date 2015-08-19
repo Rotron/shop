@@ -330,17 +330,17 @@
                             </ul>
                         </li>
 
-                        <li class="treeview {{@$this->tv_module}}">
+                        <li class="treeview {{ Request::is('admin/satellite*') || Request::is('admin/transponder*') || Request::is('admin/tv-channel*') || Request::is('admin/packege*') ? 'active' : '' }}">
                             <a href="#">
                                 <i class="fa fa-desktop"></i>
                                 <span>Телевидение</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li class="{{ @$this->tv_articles_controller }}"><a href="#"><i class="fa fa-angle-double-right active"></i> Пакеты телеканалов</a></li>
-                                <li class="{{ @$this->tv_articles_controller }}"><a href="#"><i class="fa fa-angle-double-right active"></i> Спутники</a></li>
-                                <li class="{{ @$this->tv_static_controller }}"><a href="#"><i class="fa fa-angle-double-right"></i> Телеканалы</a></li>
-                                <li class="{{ @$this->tv_posts_controller }}"><a href="#"><i class="fa fa-angle-double-right"></i> Список телеканалов</a></li>
+                                <li class="{{ Request::is('admin/satellite*') ? 'active' : '' }}"><a href="{{{ URL::to('admin/satellite') }}}"><i class="fa fa-angle-double-right active"></i> Спутники</a></li>
+                                <li class="{{ Request::is('admin/transponder*') ? 'active' : '' }}"><a href="{{{ URL::to('admin/transponder') }}}"><i class="fa fa-angle-double-right"></i> Транспондеры</a></li>
+                                <li class="{{ Request::is('admin/tv-channel*') ? 'active' : '' }}"><a href="{{{ URL::to('admin/tv-channel') }}}"><i class="fa fa-angle-double-right"></i> Телеканалы</a></li>
+                                <li class="{{ Request::is('admin/packege*') ? 'active' : '' }}"><a href="{{{ URL::to('admin/packege') }}}"><i class="fa fa-angle-double-right active"></i> Пакеты телеканалов</a></li>
                             </ul>
                         </li>
 
