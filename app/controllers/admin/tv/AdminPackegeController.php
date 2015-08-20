@@ -4,14 +4,14 @@ class AdminPackegeController extends AdminController
 {
     public function index()
     {
-        return View::make("admin.tv.transponder.index", 
-            ['items' => Transponder::all()]
+        return View::make("admin.tv.packege.index", 
+            ['items' => Packege::all()]
         );
     }
 
     public function add()
     {
-        return View::make("admin.tv.transponder.add");
+        return View::make("admin.tv.packege.add");
     }
 
     public function postAdd()
@@ -30,9 +30,9 @@ class AdminPackegeController extends AdminController
                 ->withInput(Input::except(''));
         }
 
-        $table = new Transponder;
+        $table = new Packege;
         $table->name = Input::get('name');
-        $table->transponders_id = Input::get('transponder_id');
+        $table->packeges_id = Input::get('packege_id');
         $table->system_encryption_id = Input::get('system_encryption_id');
         $table->keys_id = Input::get('keys_id');
         $table->active = Input::get('active', 0);
@@ -65,8 +65,8 @@ class AdminPackegeController extends AdminController
 
     public function edit($id)
     {
-        return View::make("admin.tv.transponder.edit", 
-            ['item' => Transponder::find($id)]
+        return View::make("admin.tv.packege.edit", 
+            ['item' => Packege::find($id)]
         );
     }
 
@@ -87,9 +87,9 @@ class AdminPackegeController extends AdminController
                 ->withInput(Input::except(''));
         }
 
-        $table = Transponder::find($id);
+        $table = Packege::find($id);
         $table->name = Input::get('name');
-        $table->transponders_id = Input::get('transponder_id');
+        $table->packeges_id = Input::get('packege_id');
         $table->system_encryption_id = Input::get('system_encryption_id');
         $table->keys_id = Input::get('keys_id');
         $table->active = Input::get('active', 0);
@@ -133,7 +133,7 @@ class AdminPackegeController extends AdminController
                 return Response::json(['success' => false]);
             }
 
-            $table = Transponder::find($id);
+            $table = Packege::find($id);
             if ($table->delete()) {
                 return Response::json(['success' => true]);
             }
