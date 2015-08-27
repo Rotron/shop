@@ -1,6 +1,6 @@
 <?php
 
-class Transponder extends Main
+class TvTransponder extends Main
 {
   public $timestamps = false;
 

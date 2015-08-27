@@ -70,10 +70,10 @@ class AdminTransponderController extends AdminController
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            $parameters = json_decode(Input::get('parameters'));
-            $img = isset($parameters->name) ? $parameters->name : null;
+            $tvChannels = json_decode(Input::get('tv-channels'));
+            //$img = isset($parameters->name) ? $parameters->name : null;
             return Redirect::to("admin/transponder/{$id}/edit")
-                ->with('uploadfile', $img)
+                //->with('uploadfile', $img)
                 ->withErrors($validator)
                 ->withInput(Input::except(''));
         }

@@ -3,7 +3,7 @@
 
 	var byId = function (id) { return document.getElementById(id); },
 
-		loadScripts = function (desc, callback) {
+/*		loadScripts = function (desc, callback) {
 			var deps = [], key, idx = 0;
 
 			for (key in desc) {
@@ -34,7 +34,7 @@
 
 				document.getElementsByTagName('head')[0].appendChild(script);
 			})()
-		},
+		},*/
 
 		console = window.console;
 
@@ -59,27 +59,40 @@
 				localStorage.setItem(sortable.options.group, order.join('|'));
 			}
 		},
-		onAdd: function (evt){ console.log('onAdd.foo:', [evt.item, evt.from]); },
+/*		onAdd: function (evt){ console.log('onAdd.foo:', [evt.item, evt.from]); },
 		onUpdate: function (evt){ console.log('onUpdate.foo:', [evt.item, evt.from]); },
 		onRemove: function (evt){ console.log('onRemove.foo:', [evt.item, evt.from]); },
 		onStart:function(evt){ console.log('onStart.foo:', [evt.item, evt.from]);},
 		onSort:function(evt){ console.log('onStart.foo:', [evt.item, evt.from]);},
-		onEnd: function(evt){ console.log('onEnd.foo:', [evt.item, evt.from]);}
+		onEnd: function(evt){ console.log('onEnd.foo:', [evt.item, evt.from]);}*/
 	});
-
-
+var tvChannels = [],
+tv = document.getElementById('tv');
 	Sortable.create(byId('bar'), {
 		group: "words",
 		animation: 150,
-		onAdd: function (evt){ console.log('onAdd.bar:', evt.item); },
-		onUpdate: function (evt){ console.log('onUpdate.bar:', evt.item); },
-		onRemove: function (evt){ console.log('onRemove.bar:', evt.item); },
-		onStart:function(evt){ console.log('onStart.foo:', evt.item);},
-		onEnd: function(evt){ console.log('onEnd.foo:', evt.item);}
+		onAdd: function (evt){ tvChannels.push(evt.item.dataset.id);
+		 tv.value = JSON.stringify(tvChannels.sort()); /*console.log(tv.value);*/ },
+		//onUpdate: function (evt){ console.log(tvChannels.sort()); },
+		onRemove: function (evt){
+/*			var index = tvChannels.indexOf(evt.item.textContent);
+
+		if (index > -1) {
+		    tvChannels.splice(index, 1);
+		}*/
+
+//console.log(tvChannels.indexOf(evt.item.dataset.id));
+tvChannels.splice(tvChannels.indexOf(evt.item.dataset.id), 1)
+			tv.value = JSON.stringify(tvChannels);
+		  //delete tvChannels[evt.item.textContent];
+		  //console.log('onRemove.bar:', evt.item.dataset.id); 
+		},
+		//onStart:function(evt){ console.log('onStart.foo:', evt.item.textContent);},
+		//onEnd: function(evt){ console.log(tvChannels.sort());}
 	});
 
 
-	// Multi groups
+/*	// Multi groups
 	Sortable.create(byId('multi'), {
 		animation: 150,
 		draggable: '.tile',
@@ -197,7 +210,7 @@
 			'Start End Add Update Remove Sort'.split(' ').forEach(function (name) {
 				$scope.sortableConfig['on' + name] = console.log.bind(console, name);
 			});
-		}]);
+		}]);*/
 })();
 
 

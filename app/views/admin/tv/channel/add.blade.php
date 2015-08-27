@@ -30,11 +30,11 @@
                     @endif
                     <div class="form-group {{ $errors->first('transponder_id') ? 'has-error' : '' }}">
                         {{ Form::label('transponder_id', 'Категория')}}
-                        {{ Form::select('transponder_id', Transponders::all(), null, ['class' => 'form-control']); }}
+                        {{ Form::select('transponder_id', TvTransponder::all(), null, ['class' => 'form-control']); }}
                     </div>
                     <div class="form-group {{ $errors->first('system_encryption_id') ? 'has-error' : '' }}">
                         {{ Form::label('system_encryption_id', 'Категория')}}
-                        {{ Form::select('system_encryption_id', Transponders::all(), null, ['class' => 'form-control']); }}
+                        {{ Form::select('system_encryption_id', TvTransponder::all(), null, ['class' => 'form-control']); }}
                     </div>
 
                     <div class="form-group {{ $errors->first('name') ? 'has-error' : '' }}">

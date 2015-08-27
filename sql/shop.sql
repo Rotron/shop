@@ -591,84 +591,29 @@ INSERT INTO `roles` VALUES (1,'Customer','2015-06-07 11:27:14','2015-06-07 11:27
 UNLOCK TABLES;
 
 --
--- Table structure for table `satellites`
+-- Table structure for table `tv_channel-transponders`
 --
 
-DROP TABLE IF EXISTS `satellites`;
+DROP TABLE IF EXISTS `tv_channel-transponders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `satellites` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  `longitude` varchar(7) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `satellites`
---
-
-LOCK TABLES `satellites` WRITE;
-/*!40000 ALTER TABLE `satellites` DISABLE KEYS */;
-INSERT INTO `satellites` VALUES (1,'Amos 2/3','4 W'),(2,'Astra 4A','5 E'),(3,'Eutelsat Hot Bird 13B/13C/13D','13 E');
-/*!40000 ALTER TABLE `satellites` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `transponders`
---
-
-DROP TABLE IF EXISTS `transponders`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `transponders` (
-  `id` int(7) NOT NULL AUTO_INCREMENT,
-  `frequency` int(5) NOT NULL,
-  `sr` int(5) NOT NULL,
-  `satellite_id` int(11) NOT NULL,
-  `fec` tinyint(1) NOT NULL,
-  `polarization` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`,`satellite_id`),
-  KEY `fk_transponders_satellites1_idx` (`satellite_id`),
-  CONSTRAINT `fk_transponders_satellites1` FOREIGN KEY (`satellite_id`) REFERENCES `satellites` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `transponders`
---
-
-LOCK TABLES `transponders` WRITE;
-/*!40000 ALTER TABLE `transponders` DISABLE KEYS */;
-INSERT INTO `transponders` VALUES (1,10722,27500,1,2,0),(2,10759,30000,1,2,0),(3,10806,30000,1,2,0),(4,11012,6666,1,1,0),(5,10889,11570,1,1,0);
-/*!40000 ALTER TABLE `transponders` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tv_channel-tv_packege`
---
-
-DROP TABLE IF EXISTS `tv_channel-tv_packege`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tv_channel-tv_packege` (
+CREATE TABLE `tv_channel-transponders` (
   `tv_channel_id` int(11) NOT NULL,
-  `tv_package_id` int(11) NOT NULL,
-  PRIMARY KEY (`tv_channel_id`,`tv_package_id`),
-  KEY `fk_tv_channel-tv_packege_tv_package1_idx` (`tv_package_id`),
-  CONSTRAINT `fk_tv_channel-tv_packege_tv_channel1` FOREIGN KEY (`tv_channel_id`) REFERENCES `tv_channels` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tv_channel-tv_packege_tv_package1` FOREIGN KEY (`tv_package_id`) REFERENCES `tv_packages` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `transponder_id` int(7) NOT NULL,
+  PRIMARY KEY (`tv_channel_id`,`transponder_id`),
+  KEY `fk_table1_transponders1_idx` (`transponder_id`),
+  CONSTRAINT `fk_table1_tv_channels1` FOREIGN KEY (`tv_channel_id`) REFERENCES `tv_channels` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_table1_transponders1` FOREIGN KEY (`transponder_id`) REFERENCES `tv_transponders` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tv_channel-tv_packege`
+-- Dumping data for table `tv_channel-transponders`
 --
 
-LOCK TABLES `tv_channel-tv_packege` WRITE;
-/*!40000 ALTER TABLE `tv_channel-tv_packege` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tv_channel-tv_packege` ENABLE KEYS */;
+LOCK TABLES `tv_channel-transponders` WRITE;
+/*!40000 ALTER TABLE `tv_channel-transponders` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tv_channel-transponders` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -680,16 +625,16 @@ DROP TABLE IF EXISTS `tv_channels`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tv_channels` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `language_id` int(5) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `transponders_id` int(5) DEFAULT NULL,
-  `system_encryption` varchar(40) DEFAULT '',
   `key` varchar(40) DEFAULT '',
+  `system_encryption` varchar(40) DEFAULT '',
   `active` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `fk_tv_transponders_idx` (`transponders_id`),
+  PRIMARY KEY (`id`,`language_id`),
   KEY `fk_tv_channels_system_encryption1_idx` (`system_encryption`),
-  CONSTRAINT `fk_tv_transponders` FOREIGN KEY (`transponders_id`) REFERENCES `tv_channels` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  KEY `fk_tv_channels_language1_idx` (`language_id`),
+  CONSTRAINT `fk_tv_channels_language1` FOREIGN KEY (`language_id`) REFERENCES `tv_languages` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -698,8 +643,54 @@ CREATE TABLE `tv_channels` (
 
 LOCK TABLES `tv_channels` WRITE;
 /*!40000 ALTER TABLE `tv_channels` DISABLE KEYS */;
-INSERT INTO `tv_channels` VALUES (1,'1+1',NULL,NULL,NULL,1),(2,'2+2',NULL,NULL,NULL,1),(3,'К1',NULL,NULL,NULL,1);
 /*!40000 ALTER TABLE `tv_channels` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tv_languages`
+--
+
+DROP TABLE IF EXISTS `tv_languages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tv_languages` (
+  `id` int(5) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tv_languages`
+--
+
+LOCK TABLES `tv_languages` WRITE;
+/*!40000 ALTER TABLE `tv_languages` DISABLE KEYS */;
+INSERT INTO `tv_languages` VALUES (1,'укр.'),(2,'рус.'),(3,'бел.'),(4,'молд.'),(5,'груз.'),(6,'арм.'),(7,'азерб.'),(8,'татар.'),(9,'казах.'),(10,'анг.'),(11,'итал.'),(12,'испан.'),(13,'немецк.'),(14,'франц.');
+/*!40000 ALTER TABLE `tv_languages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tv_operators`
+--
+
+DROP TABLE IF EXISTS `tv_operators`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tv_operators` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tv_operators`
+--
+
+LOCK TABLES `tv_operators` WRITE;
+/*!40000 ALTER TABLE `tv_operators` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tv_operators` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -714,7 +705,7 @@ CREATE TABLE `tv_package-satellites` (
   `satellites_id` int(11) NOT NULL,
   PRIMARY KEY (`tv_package_id`,`satellites_id`),
   KEY `fk_tv_package-satellites_satellites1_idx` (`satellites_id`),
-  CONSTRAINT `fk_tv_package-satellites_satellites1` FOREIGN KEY (`satellites_id`) REFERENCES `satellites` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tv_package-satellites_satellites1` FOREIGN KEY (`satellites_id`) REFERENCES `tv_satellites` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_tv_package-satellites_tv_package1` FOREIGN KEY (`tv_package_id`) REFERENCES `tv_packages` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -742,7 +733,7 @@ CREATE TABLE `tv_packages` (
   `operator_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_tv_package_operator1_idx` (`operator_id`),
-  CONSTRAINT `fk_tv_package_operator1` FOREIGN KEY (`operator_id`) REFERENCES `operators` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_tv_package_operator1` FOREIGN KEY (`operator_id`) REFERENCES `tv_operators` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -753,6 +744,59 @@ CREATE TABLE `tv_packages` (
 LOCK TABLES `tv_packages` WRITE;
 /*!40000 ALTER TABLE `tv_packages` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tv_packages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tv_satellites`
+--
+
+DROP TABLE IF EXISTS `tv_satellites`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tv_satellites` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `longitude` varchar(7) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tv_satellites`
+--
+
+LOCK TABLES `tv_satellites` WRITE;
+/*!40000 ALTER TABLE `tv_satellites` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tv_satellites` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tv_transponders`
+--
+
+DROP TABLE IF EXISTS `tv_transponders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tv_transponders` (
+  `id` int(7) NOT NULL AUTO_INCREMENT,
+  `satellite_id` int(11) NOT NULL,
+  `frequency` int(5) NOT NULL,
+  `sr` int(5) NOT NULL,
+  `fec` tinyint(1) NOT NULL,
+  `polarization` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`,`satellite_id`),
+  KEY `fk_transponders_satellites1_idx` (`satellite_id`),
+  CONSTRAINT `fk_transponders_satellites1` FOREIGN KEY (`satellite_id`) REFERENCES `tv_satellites` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tv_transponders`
+--
+
+LOCK TABLES `tv_transponders` WRITE;
+/*!40000 ALTER TABLE `tv_transponders` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tv_transponders` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -830,4 +874,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-19 22:28:14
+-- Dump completed on 2015-08-27  9:00:56
