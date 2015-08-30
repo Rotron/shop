@@ -4,15 +4,15 @@ class AdminTransponderController extends AdminController
 {
     public function index()
     {
-        $satellites = Satellite::orderBy('name')->lists('name', 'id');
+        $satellites = TvSatellite::orderBy('name')->lists('name', 'id');
         return View::make("admin.tv.transponder.index", 
-            ['items' => Transponder::all(), 'satellites' => $satellites]
+            ['items' => TvTransponder::all(), 'satellites' => $satellites]
         );
     }
 
     public function add()
     {
-        $satellites = Satellite::orderBy('name')->lists('name', 'id');
+        $satellites = TvSatellite::orderBy('name')->lists('name', 'id');
         return View::make("admin.tv.transponder.add", ['satellites' => $satellites]);
     }
 
@@ -35,7 +35,7 @@ class AdminTransponderController extends AdminController
                 ->withInput(Input::except(''));
         }
 
-        $table = new Transponder;
+        $table = new TvTransponder;
         $table->satellite_id = Input::get('satellite_id');
         $table->frequency = Input::get('frequency');
         $table->polarization = Input::get('polarization');
@@ -53,7 +53,7 @@ class AdminTransponderController extends AdminController
     public function edit($id)
     {
         return View::make("admin.tv.transponder.edit", 
-            ['item' => Transponder::find($id)]
+            ['item' => TvTransponder::find($id)]
         );
     }
 
@@ -78,7 +78,7 @@ class AdminTransponderController extends AdminController
                 ->withInput(Input::except(''));
         }
 
-        $table = Transponder::find($id);
+        $table = TvTransponder::find($id);
         $table->satellite_id = Input::get('satellite_id');
         $table->frequency = Input::get('frequency');
         $table->polarization = Input::get('polarization');
@@ -106,7 +106,7 @@ class AdminTransponderController extends AdminController
                 return Response::json(['success' => false]);
             }
 
-            $table = Transponder::find($id);
+            $table = TvTransponder::find($id);
             if ($table->delete()) {
                 return Response::json(['success' => true]);
             }

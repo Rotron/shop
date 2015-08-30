@@ -1,6 +1,6 @@
 <?php
 
-class Satellite extends Main 
+class TvSatellite extends Main 
 {
   public $timestamps = false;
 }

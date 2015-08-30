@@ -1,6 +1,6 @@
 <?php
 
-class Packege extends Main 
+class TvPackege extends Main 
 {
   public $timestamps = false;
 }

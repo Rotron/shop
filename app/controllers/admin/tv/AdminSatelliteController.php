@@ -5,7 +5,7 @@ class AdminSatelliteController extends AdminController
     public function index()
     {
         return View::make("admin.tv.satellite.index", 
-            ['items' => Satellite::all()]
+            ['items' => TvSatellite::all()]
         );
     }
 
@@ -28,7 +28,7 @@ class AdminSatelliteController extends AdminController
                 ->withInput(Input::except(''));
         }
 
-        $table = new Satellite;
+        $table = new TvSatellite;
         $table->name = Input::get('name');
         $table->longitude = Input::get('longitude');
 
@@ -42,8 +42,8 @@ class AdminSatelliteController extends AdminController
 
     public function edit($id)
     {
-        return View::make("admin.tv.satellite.edit", 
-            ['item' => Satellite::find($id)]
+        return View::make("admin.tv.satellite.edit",
+            ['item' => TvSatellite::find($id)]
         );
     }
 
@@ -61,7 +61,7 @@ class AdminSatelliteController extends AdminController
                 ->withInput(Input::except(''));
         }
 
-        $table = Satellite::find($id);
+        $table = TvSatellite::find($id);
         $table->name = Input::get('name');
         $table->longitude = Input::get('longitude');
 
@@ -86,7 +86,7 @@ class AdminSatelliteController extends AdminController
                 return Response::json(['success' => false]);
             }
 
-            $table = Satellite::find($id);
+            $table = TvSatellite::find($id);
             if ($table->delete()) {
                 return Response::json(['success' => true]);
             }

@@ -5,7 +5,7 @@ class AdminPackegeController extends AdminController
     public function index()
     {
         return View::make("admin.tv.packege.index", 
-            ['items' => Packege::all()]
+            ['items' => TvPackege::all()]
         );
     }
 
@@ -30,7 +30,7 @@ class AdminPackegeController extends AdminController
                 ->withInput(Input::except(''));
         }
 
-        $table = new Packege;
+        $table = new TvPackege;
         $table->name = Input::get('name');
         $table->packeges_id = Input::get('packege_id');
         $table->system_encryption_id = Input::get('system_encryption_id');
@@ -66,7 +66,7 @@ class AdminPackegeController extends AdminController
     public function edit($id)
     {
         return View::make("admin.tv.packege.edit", 
-            ['item' => Packege::find($id)]
+            ['item' => TvPackege::find($id)]
         );
     }
 
@@ -87,7 +87,7 @@ class AdminPackegeController extends AdminController
                 ->withInput(Input::except(''));
         }
 
-        $table = Packege::find($id);
+        $table = TvPackege::find($id);
         $table->name = Input::get('name');
         $table->packeges_id = Input::get('packege_id');
         $table->system_encryption_id = Input::get('system_encryption_id');
@@ -133,7 +133,7 @@ class AdminPackegeController extends AdminController
                 return Response::json(['success' => false]);
             }
 
-            $table = Packege::find($id);
+            $table = TvPackege::find($id);
             if ($table->delete()) {
                 return Response::json(['success' => true]);
             }
