@@ -2,9 +2,9 @@ CREATE DATABASE  IF NOT EXISTS `shop` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `shop`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: 127.0.0.1    Database: shop
+-- Host: localhost    Database: shop
 -- ------------------------------------------------------
--- Server version	5.6.17
+-- Server version	5.6.16
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -756,9 +756,10 @@ DROP TABLE IF EXISTS `tv_satellites`;
 CREATE TABLE `tv_satellites` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `longitude` varchar(7) NOT NULL,
+  `longitude` decimal(4,1) NOT NULL,
+  `ward` varchar(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -767,6 +768,7 @@ CREATE TABLE `tv_satellites` (
 
 LOCK TABLES `tv_satellites` WRITE;
 /*!40000 ALTER TABLE `tv_satellites` DISABLE KEYS */;
+INSERT INTO `tv_satellites` VALUES (4,'Amos 2/3',4.0,'1'),(5,'Astra 4A (Sirius)',4.8,'0'),(6,'Hot Bird 6/8/9',13.0,'0'),(7,'Astra 1G',31.5,'0'),(8,'Hellas Sat 2',39.0,'0'),(9,'Express AM22',53.0,'0'),(10,'Intelsat 904',60.0,'0'),(11,'ABS 1',75.0,'0'),(12,'Intelsat 15',85.2,'0'),(13,'Yamal 201',90.0,'0');
 /*!40000 ALTER TABLE `tv_satellites` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -787,7 +789,7 @@ CREATE TABLE `tv_transponders` (
   PRIMARY KEY (`id`,`satellite_id`),
   KEY `fk_transponders_satellites1_idx` (`satellite_id`),
   CONSTRAINT `fk_transponders_satellites1` FOREIGN KEY (`satellite_id`) REFERENCES `tv_satellites` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -796,6 +798,7 @@ CREATE TABLE `tv_transponders` (
 
 LOCK TABLES `tv_transponders` WRITE;
 /*!40000 ALTER TABLE `tv_transponders` DISABLE KEYS */;
+INSERT INTO `tv_transponders` VALUES (1,4,10722,27500,2,0),(6,4,10759,30000,2,0),(7,4,10806,30000,2,0),(8,4,11260,27500,3,0),(9,4,11389,27500,2,0),(10,5,11766,27500,2,0),(11,4,11601,8888,2,0),(12,5,12073,27500,2,0),(13,4,12130,27500,2,1),(14,5,12284,27500,2,1),(15,5,12380,27500,2,0),(16,4,12380,27500,2,0),(17,5,12399,27500,2,1),(18,5,12669,2599,2,0),(19,5,12695,3333,3,1),(20,5,12703,2100,2,1),(21,6,10815,27500,2,0),(22,6,11034,27500,2,1),(23,6,11117,27500,2,0),(24,6,11200,27500,2,1),(25,6,11200,27500,2,1),(26,6,11566,27500,2,0),(27,6,11604,27500,2,0),(28,6,11623,27500,2,1),(29,6,12149,27500,2,1),(30,6,11597,27500,2,1);
 /*!40000 ALTER TABLE `tv_transponders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -874,4 +877,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-27  9:00:56
+-- Dump completed on 2015-09-01 19:03:12

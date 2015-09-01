@@ -13,30 +13,33 @@
     </div>
     <div class="box-body table-responsive">
     {{ Form::open()}}
-        <table id="data" class="table table-bordered display">
+        <table id="satellite" class="table table-bordered display">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th hidden>ID</th>
                     <th>Название</th>
                     <th>Долгота</th>
+                    <th>Направление</th>
                 </tr>
             </thead>
             
             <tbody>
                 @foreach ($items as $item)
                 <tr class="fields">
-                    <td>{{ $item->id }}</td>
+                    <td hidden>{{ $item->id }}</td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->longitude }}</td>
+                    <td>{{ TvSatellite::WARD[$item->ward] }}</td>
                 </tr>
                 @endforeach
             </tbody>
 
             <tfoot>
                 <tr>
-                    <th>ID</th>
+                    <th hidden>ID</th>
                     <th>Название</th>
                     <th>Долгота</th>
+                    <th>Направление</th>
                 </tr>
             </tfoot>
         </table>
@@ -45,8 +48,18 @@
 </div>
 <script type="text/javascript">
     $(function() {
-        $("#data").dataTable();
         $('.icheckbox_minimal').removeClass('disabled');
+        var table = $("#satellite").dataTable({ "bSort": false, "paging": false, });
+
+        $('#satellite tbody').on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
     });
 </script>
 @stop

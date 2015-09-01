@@ -13,10 +13,10 @@
     </div>
     <div class="box-body table-responsive">
     {{ Form::open()}}
-        <table id="data" class="table table-bordered display">
+        <table id="transponder" class="table table-bordered display">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th  hidden>id</th>
                     <th>Спутник</th>
                     <th>Частота</th>
                     <th>Поляризация</th>
@@ -27,20 +27,20 @@
             
             <tbody>
                 @foreach ($items as $item)
-                <tr class="fields">
-                    <td>{{ $item->id }}</td>
-                    <td>{{ $satellites[$item->satellite_id] }}</td>
+                <tr  class="fields">
+                    <td hidden>{{ $item->id }}</td>
+                    <td>{{ $item->name }}</td>
                     <td>{{ $item->frequency }}</td>
-                    <td>{{ Transponder::POLARIZATION[$item->polarization] }}</td>
+                    <td>{{ TvTransponder::POLARIZATION[$item->polarization] }}</td>
                     <td>{{ $item->sr }}</td>
-                    <td>{{ Transponder::FEC[$item->fec] }}</td>
+                    <td>{{ TvTransponder::FEC[$item->fec] }}</td>
                 </tr>
                 @endforeach
             </tbody>
 
             <tfoot>
                 <tr>
-                    <th>ID</th>
+                    <th hidden>id</th>
                     <th>Спутник</th>
                     <th>Частота</th>
                     <th>Поляризация</th>
@@ -54,8 +54,18 @@
 </div>
 <script type="text/javascript">
     $(function() {
-        $("#data").dataTable();
         $('.icheckbox_minimal').removeClass('disabled');
+        var table = $("#transponder").dataTable({ "bSort": false, "paging": false, });
+
+        $('#transponder tbody').on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
     });
 </script>
 @stop

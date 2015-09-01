@@ -17,7 +17,7 @@
                     <div class="col-md-2 col-sm-2">
                         <div class="form-group {{ $errors->first('satellite_id') ? 'has-error' : '' }}">
                             {{ Form::label('satellite_id', 'Спутник')}}
-                            {{ Form::select('satellite_id', Satellite::lists('name', 'id'), $item->satellite_id, ['class' => 'form-control', 'placeholder' => 'Amos 2/3']); }}
+                            {{ Form::select('satellite_id', TvSatellite::lists('name', 'id'), $item->satellite_id, ['class' => 'form-control', 'placeholder' => 'Amos 2/3']); }}
                         </div>
                     </div>
 
@@ -31,7 +31,7 @@
                     <div class="col-md-2 col-sm-2">
                         <div class="form-group {{ $errors->first('polarization') ? 'has-error' : '' }}">
                             {{ Form::label('polarization', 'Поляризация')}}
-                            {{ Form::select('polarization', Transponder::POLARIZATION, $item->polarization, ['class' => 'form-control']); }}
+                            {{ Form::select('polarization', TvTransponder::POLARIZATION, $item->polarization, ['class' => 'form-control']); }}
                         </div>
                     </div>
 
@@ -45,13 +45,13 @@
                     <div class="col-md-1 col-sm-1">
                         <div class="form-group {{ $errors->first('fec') ? 'has-error' : '' }}">
                             {{ Form::label('fec', 'FEC')}}
-                            {{ Form::select('fec', Transponder::FEC, $item->fec, ['class' => 'form-control']); }}
+                            {{ Form::select('fec', TvTransponder::FEC, $item->fec, ['class' => 'form-control']); }}
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-3">
                         <div class="form-group {{ $errors->first('tv-channels') ? 'has-error' : '' }}">
                             {{ Form::label('tv-channels', 'Телеканалы') }}
-                            {{ Form::text('tv-channels',  $item->tv-channels, ['class' => 'form-control']) }}
+                            {{ Form::text('tv-channels',  '', ['class' => 'form-control']) }}
                         </div>
                     </div>
                 </div>

@@ -24,6 +24,10 @@
                         {{ Form::label('longitude', 'Долгота') }}
                         {{ Form::text('longitude', $item->longitude, ['class' => 'form-control', 'placeholder' => '4 W']) }}
                     </div>
+                    <div class="form-group {{ $errors->first('ward') ? 'has-error' : '' }}">
+                        {{ Form::label('ward', 'Направление')}}
+                        {{ Form::select('ward', TvSatellite::WARD, $item->ward, ['class' => 'form-control']); }}
+                    </div>
                 </div><!-- /.box-body -->
 
                 <div class="box-footer">

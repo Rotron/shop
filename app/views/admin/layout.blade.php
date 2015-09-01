@@ -19,7 +19,6 @@
 
         <script src="/backend/js/plugins/bootstrap-confirm/bootbox.min.js"></script>
         <script src="/backend/js/plugins/bootstrap-confirm/jquery.confirm.min.js"></script>
-
         @if (substr(Route::currentRouteAction(), -5) === 'index')
         <link href="/backend/css/datatables/data-tables.bootstrap.css" rel="stylesheet" type="text/css" />
         <link href="{{ asset('/backend/css/datatables/jquery.dataTables.css') }}" rel="stylesheet" type="text/css" />

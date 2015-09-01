@@ -5,7 +5,7 @@ class AdminSatelliteController extends AdminController
     public function index()
     {
         return View::make("admin.tv.satellite.index", 
-            ['items' => TvSatellite::all()]
+            ['items' => TvSatellite::orderBy('longitude', 'asc')->get()]
         );
     }
 
@@ -17,7 +17,9 @@ class AdminSatelliteController extends AdminController
     public function postAdd()
     {
         $rules = array(
-            'name' => 'required|min:5|max:45',
+            'name' => 'required|min:2|max:45',
+            'longitude' => 'required',
+            'ward' => 'required',
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -31,6 +33,7 @@ class AdminSatelliteController extends AdminController
         $table = new TvSatellite;
         $table->name = Input::get('name');
         $table->longitude = Input::get('longitude');
+        $table->ward = Input::get('ward');
 
         if ($table->save()) {
             return Redirect::to("admin/satellite")->with('success', trans("message.add"));
@@ -51,6 +54,8 @@ class AdminSatelliteController extends AdminController
     {
         $rules = array(
             'name' => 'required|min:2|max:45',
+            'longitude' => 'required',
+            'ward' => 'required',
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -64,6 +69,7 @@ class AdminSatelliteController extends AdminController
         $table = TvSatellite::find($id);
         $table->name = Input::get('name');
         $table->longitude = Input::get('longitude');
+        $table->ward = Input::get('ward');
 
         if ($table->save()) {
             return Redirect::to("admin/satellite")->with('success', trans("message.adit"));

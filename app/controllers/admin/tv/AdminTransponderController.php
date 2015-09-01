@@ -4,9 +4,26 @@ class AdminTransponderController extends AdminController
 {
     public function index()
     {
-        $satellites = TvSatellite::orderBy('name')->lists('name', 'id');
+
+//$transponder = TvTransponder::where('id', '>', 1)->first(); 
+//$satellite = TvSatellite::where('id', '=', 4)->first()->tvTransponders;
+
+        $satellites = DB::table('tv_satellites')
+            ->join('tv_transponders', 'tv_satellites.id', '=', 'tv_transponders.satellite_id')
+            ->orderBy('longitude', 'asc')
+            ->orderBy('frequency', 'asc')
+            ->select('tv_transponders.id', 'name', 'frequency', 'sr', 'fec', 'longitude', 'polarization')
+            ->get();
+
+
+
+//var_dump($satellites); die;
+//var_dump($satellites->name); die;
+//$transponder->tvSatellites
+
+        //$satellites = TvSatellite::orderBy('name')->lists('name', 'id');
         return View::make("admin.tv.transponder.index", 
-            ['items' => TvTransponder::all(), 'satellites' => $satellites]
+            ['items' => $satellites]
         );
     }
 
