@@ -28,14 +28,27 @@
                           <div class="form-group has-error"><label><i class="fa fa-times-circle-o"></i> {{ $error }}</label></div>
                       @endforeach
                     @endif
+
                     <div class="form-group {{ $errors->first('name') ? 'has-error' : '' }}">
                         {{ Form::label('name', 'Название') }}
                         {{ Form::text('name', $item->name, ['class' => 'form-control', 'placeholder' => 'Название']) }}
                     </div>
 
-                    <div class="form-group">
-                       {{ Form::text('parameters', '', ['id' => 'parameters', 'class' => 'hide', 'rows' => 3]) }}
+                    <div class="form-group {{ $errors->first('key') ? 'has-error' : '' }}">
+                        {{ Form::label('key', 'Ключ') }}
+                        {{ Form::text('key', $item->key, ['class' => 'form-control', 'placeholder' => 'Ключ']) }}
                     </div>
+
+                    <div class="form-group {{ $errors->first('language_id') ? 'has-error' : '' }}">
+                        {{ Form::label('language_id', 'Язык')}}
+                        {{ Form::select('language_id', TvLanguage::lists('name', 'id'), $item->language_id, ['class' => 'form-control']); }}
+                    </div>
+
+                    <div class="form-group {{ $errors->first('system_encryption') ? 'has-error' : '' }}">
+                        {{ Form::label('system_encryption', 'Система кодирования') }}
+                        {{ Form::text('system_encryption', $item->system_encryption, ['class' => 'form-control', 'placeholder' => 'Система кодирования']) }}
+                    </div>
+
                     <div class="checkbox">
                         <label>
                             {{ Form::checkbox('active', '1', $item->active) }} Активность

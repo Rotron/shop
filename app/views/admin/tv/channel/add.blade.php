@@ -34,23 +34,19 @@
                         {{ Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Название']) }}
                     </div>
 
-                    <div class="form-group {{ $errors->first('name') ? 'has-error' : '' }}">
-                        {{ Form::label('name', 'Название') }}
-                        {{ Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Название']) }}
+                    <div class="form-group {{ $errors->first('key') ? 'has-error' : '' }}">
+                        {{ Form::label('key', 'Ключ') }}
+                        {{ Form::text('key', '', ['class' => 'form-control', 'placeholder' => 'Ключ']) }}
                     </div>
 
                     <div class="form-group {{ $errors->first('language_id') ? 'has-error' : '' }}">
                         {{ Form::label('language_id', 'Язык')}}
                         {{ Form::select('language_id', TvLanguage::lists('name', 'id'), null, ['class' => 'form-control']); }}
                     </div>
-                    <div class="form-group {{ $errors->first('system_encryption_id') ? 'has-error' : '' }}">
-                        {{ Form::label('system_encryption_id', 'Категория')}}
-                        {{ Form::select('system_encryption_id', TvTransponder::all(), null, ['class' => 'form-control']); }}
-                    </div>
 
-                    <div class="form-group {{ $errors->first('ward') ? 'has-error' : '' }}">
-                        {{ Form::label('ward', 'Направление')}}
-                        {{ Form::select('ward', TvSatellite::WARD, '', ['class' => 'form-control']); }}
+                    <div class="form-group {{ $errors->first('system_encryption') ? 'has-error' : '' }}">
+                        {{ Form::label('system_encryption', 'Система кодирования') }}
+                        {{ Form::text('system_encryption', '', ['class' => 'form-control', 'placeholder' => 'Система кодирования']) }}
                     </div>
 
                     <div class="form-group">

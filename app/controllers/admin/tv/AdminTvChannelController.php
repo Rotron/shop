@@ -18,6 +18,7 @@ class AdminTvChannelController extends AdminController
     {
         $rules = array(
             'name' => 'required|min:2|max:500',
+            'language_id' => 'required',
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -32,9 +33,9 @@ class AdminTvChannelController extends AdminController
 
         $table = new TvChannel;
         $table->name = Input::get('name');
-        $table->transponders_id = Input::get('transponder_id');
-        $table->system_encryption_id = Input::get('system_encryption_id');
-        $table->keys_id = Input::get('keys_id');
+        $table->language_id = Input::get('language_id');
+        $table->system_encryption = Input::get('system_encryption');
+        $table->key = Input::get('key');
         $table->active = Input::get('active', 0);
 
         if ($table->save()) {
@@ -74,6 +75,7 @@ class AdminTvChannelController extends AdminController
     {
         $rules = array(
             'name' => 'required|min:2|max:500',
+            'language_id' => 'required',
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -89,9 +91,9 @@ class AdminTvChannelController extends AdminController
 
         $table = TvChannel::find($id);
         $table->name = Input::get('name');
-        $table->transponders_id = Input::get('transponder_id');
-        $table->system_encryption_id = Input::get('system_encryption_id');
-        $table->keys_id = Input::get('keys_id');
+        $table->language_id = Input::get('language_id');
+        $table->system_encryption = Input::get('system_encryption');
+        $table->key = Input::get('key');
         $table->active = Input::get('active', 0);
 
         if ($table->save()) {
