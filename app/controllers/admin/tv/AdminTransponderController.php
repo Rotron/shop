@@ -101,8 +101,26 @@ class AdminTransponderController extends AdminController
         $table->polarization = Input::get('polarization');
         $table->sr = Input::get('sr');
         $table->fec = Input::get('fec');
+        $table->tv_channels = Input::get('tv_channels');
 
         if ($table->save()) {
+/*            $validator = Validator::make(Input::all(), $rules);
+            $tvChannels = json_decode(Input::get('tv-channels'));
+
+            if (!empty($tvChannels)) {
+                TvChannelTransponder::where('tv_transponder_id', '=', $table->id)->delete();
+
+                foreach ($tvChannels as $id) {
+                $tvChannelTransponder = new TvChannelTransponder;
+                    $tvChannelTransponder->tv_channel_id = $id;
+                    $tvChannelTransponder->tv_transponder_id = $table->id;
+                    $tvChannelTransponder->save();
+                }
+            }*/
+
+            //var_dump($tvChannels); die;
+
+
             return Redirect::to("admin/transponder")->with('success', trans("message.adit"));
         }
 

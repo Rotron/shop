@@ -116,12 +116,12 @@ Route::group(array('prefix' => 'admin'), function()
     Route::post('system-encryption/{id}/edit', 'AdminSystemEncryptionController@postEdit');
     Route::post('system-encryption/delete', 'AdminSystemEncryptionController@postDelete');
 
-    Route::get('packege', 'AdminPackegeController@index');
-    Route::get('packege/add', 'AdminPackegeController@add');
-    Route::get('packege/{id}/edit', 'AdminPackegeController@edit');
-    Route::post('packege/add', 'AdminPackegeController@postAdd');
-    Route::post('packege/{id}/edit', 'AdminPackegeController@postEdit');
-    Route::post('packege/delete', 'AdminPackegeController@postDelete');
+    Route::get('package', 'AdminPackageController@index');
+    Route::get('package/add', 'AdminPackageController@add');
+    Route::get('package/{id}/edit', 'AdminPackageController@edit');
+    Route::post('package/add', 'AdminPackageController@postAdd');
+    Route::post('package/{id}/edit', 'AdminPackageController@postEdit');
+    Route::post('package/delete', 'AdminPackageController@postDelete');
 
     Route::get('operator', 'AdminOperatorController@index');
     Route::get('operator/add', 'AdminOperatorController@add');

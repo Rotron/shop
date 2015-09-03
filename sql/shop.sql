@@ -599,11 +599,11 @@ DROP TABLE IF EXISTS `tv_channel-transponders`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tv_channel-transponders` (
   `tv_channel_id` int(11) NOT NULL,
-  `transponder_id` int(7) NOT NULL,
-  PRIMARY KEY (`tv_channel_id`,`transponder_id`),
-  KEY `fk_table1_transponders1_idx` (`transponder_id`),
-  CONSTRAINT `fk_table1_tv_channels1` FOREIGN KEY (`tv_channel_id`) REFERENCES `tv_channels` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_table1_transponders1` FOREIGN KEY (`transponder_id`) REFERENCES `tv_transponders` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `tv_transponder_id` int(7) NOT NULL,
+  PRIMARY KEY (`tv_channel_id`,`tv_transponder_id`),
+  KEY `fk_table1_transponders1_idx` (`tv_transponder_id`),
+  CONSTRAINT `fk_table1_transponders1` FOREIGN KEY (`tv_transponder_id`) REFERENCES `tv_transponders` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_table1_tv_channels1` FOREIGN KEY (`tv_channel_id`) REFERENCES `tv_channels` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -613,6 +613,7 @@ CREATE TABLE `tv_channel-transponders` (
 
 LOCK TABLES `tv_channel-transponders` WRITE;
 /*!40000 ALTER TABLE `tv_channel-transponders` DISABLE KEYS */;
+INSERT INTO `tv_channel-transponders` VALUES (1,1),(2,1),(3,1);
 /*!40000 ALTER TABLE `tv_channel-transponders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -634,7 +635,7 @@ CREATE TABLE `tv_channels` (
   KEY `fk_tv_channels_system_encryption1_idx` (`system_encryption`),
   KEY `fk_tv_channels_language1_idx` (`language_id`),
   CONSTRAINT `fk_tv_channels_language1` FOREIGN KEY (`language_id`) REFERENCES `tv_languages` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -643,6 +644,7 @@ CREATE TABLE `tv_channels` (
 
 LOCK TABLES `tv_channels` WRITE;
 /*!40000 ALTER TABLE `tv_channels` DISABLE KEYS */;
+INSERT INTO `tv_channels` VALUES (1,1,'1+1','','',1),(2,1,'2+2','09 02 19 24 63 23 06 8C / ID:17E8 ','',1),(3,3,'К1','','',1),(6,1,'Unian-TV','','',1),(7,1,'OTV','','',1),(8,1,'ТВ Київ','65 43 21 00 12 34 56 00 / ID:0003','',1),(9,1,'Плюс Плюс','','',1),(10,1,'UBR','','',1),(11,1,'Тонис','','',1),(12,1,'Интер','','',1),(13,1,'Социальная страна','','',1),(14,1,'СТБ','','',1),(15,1,'М1','','',1),(16,1,'Новый канал 	','','',1),(17,1,'ICTV','','',1),(18,1,'M2 Эстрада','','',1),(19,1,'Телеканал новостей \"24\"','','',1),(20,1,'Первый Деловой','','',1),(21,1,'QTV','','',1),(22,1,'Первый национальный','','',1),(23,1,'Перший Ukraine','','',1),(24,1,'MUSIK BOX','','',1),(25,1,'Бигуди','','',1),(26,1,'112 Украина (SD)','','',1),(27,1,'112 Украина (HD)','','DVB-S2/MPEG-4',1),(28,1,'ZOOM','','',1),(29,1,'Tonis HD','','DVB-S2/MPEG-4',1),(30,1,'Мега (Mega)','','',1),(31,1,'ЧП.Info','','',1),(32,1,'Львов-ТВ','','',1),(33,1,'Enter фильм','','',1),(34,1,'К2','','',1),(35,1,'Пиксель ТВ','','',1),(36,1,'Бутик ТВ','','',1),(37,1,'Эко-ТВ','','',1),(38,1,'Гамма','','',1),(39,1,'НТН','','',1),(40,1,'EuroNews','','',1),(41,1,'Трофей ТВ','','',1),(42,1,'Украина-24','','',1),(43,1,'ТЕТ','19 09 06 00 11 76 60 00 / ID:17DE','',1),(44,1,'1+1 International','1A 2B 3C 00 4D 5E 6F 00 / ID:17ED','DVB-S2/MPEG-4',1),(45,1,'GLAS','','',1),(46,1,'Малятко ТВ','','',1),(47,1,'Рада','','',1),(48,1,'НТА','','',1),(49,1,'ТРК Украина','','',1),(50,1,'News One','','',1),(51,1,'RU MUSIC','','',1),(52,1,'Телеканал \"100\"','','',1);
 /*!40000 ALTER TABLE `tv_channels` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -729,7 +731,7 @@ DROP TABLE IF EXISTS `tv_packages`;
 CREATE TABLE `tv_packages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
-  `price` decimal(7,2) NOT NULL,
+  `price` int(5) NOT NULL DEFAULT '0',
   `operator_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_tv_package_operator1_idx` (`operator_id`),
@@ -786,6 +788,7 @@ CREATE TABLE `tv_transponders` (
   `sr` int(5) NOT NULL,
   `fec` tinyint(1) NOT NULL,
   `polarization` tinyint(1) NOT NULL,
+  `tv_channels` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`,`satellite_id`),
   KEY `fk_transponders_satellites1_idx` (`satellite_id`),
   CONSTRAINT `fk_transponders_satellites1` FOREIGN KEY (`satellite_id`) REFERENCES `tv_satellites` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -798,7 +801,7 @@ CREATE TABLE `tv_transponders` (
 
 LOCK TABLES `tv_transponders` WRITE;
 /*!40000 ALTER TABLE `tv_transponders` DISABLE KEYS */;
-INSERT INTO `tv_transponders` VALUES (1,4,10722,27500,2,0),(6,4,10759,30000,2,0),(7,4,10806,30000,2,0),(8,4,11260,27500,3,0),(9,4,11389,27500,2,0),(10,5,11766,27500,2,0),(11,4,11601,8888,2,0),(12,5,12073,27500,2,0),(13,4,12130,27500,2,1),(14,5,12284,27500,2,1),(15,5,12380,27500,2,0),(16,4,12380,27500,2,0),(17,5,12399,27500,2,1),(18,5,12669,2599,2,0),(19,5,12695,3333,3,1),(20,5,12703,2100,2,1),(21,6,10815,27500,2,0),(22,6,11034,27500,2,1),(23,6,11117,27500,2,0),(24,6,11200,27500,2,1),(25,6,11200,27500,2,1),(26,6,11566,27500,2,0),(27,6,11604,27500,2,0),(28,6,11623,27500,2,1),(29,6,12149,27500,2,1),(30,6,11597,27500,2,1);
+INSERT INTO `tv_transponders` VALUES (1,4,10722,27500,2,0,'[\"1\",\"10\",\"11\",\"12\",\"13\",\"2\",\"3\",\"6\",\"7\",\"8\",\"9\"]'),(6,4,10759,30000,2,0,'[\"14\",\"15\",\"16\",\"17\",\"18\",\"19\",\"20\",\"21\",\"22\",\"23\"]'),(7,4,10806,30000,2,0,'[\"24\",\"25\",\"26\",\"27\",\"29\"]'),(8,4,10889,11570,2,0,'[\"12\",\"28\",\"3\",\"30\",\"33\",\"34\",\"35\",\"37\",\"38\",\"39\",\"40\",\"41\"]'),(9,4,11389,27500,2,0,'[\"28\",\"3\",\"30\",\"33\",\"34\",\"35\",\"37\",\"38\",\"39\",\"40\",\"41\"]'),(10,5,11766,27500,2,0,NULL),(11,4,11601,8888,2,0,NULL),(12,5,12073,27500,2,0,NULL),(13,5,12130,27500,2,1,''),(14,5,12284,27500,2,1,NULL),(15,5,12380,27500,2,0,NULL),(16,4,12380,27500,2,0,NULL),(17,5,12399,27500,2,1,NULL),(18,5,12669,2599,2,0,NULL),(19,5,12695,3333,3,1,NULL),(20,5,12703,2100,2,1,NULL),(21,6,10815,27500,2,0,NULL),(22,6,11034,27500,2,1,NULL),(23,6,11117,27500,2,0,NULL),(24,6,11200,27500,2,1,NULL),(25,6,11200,27500,2,1,NULL),(26,6,11566,27500,2,0,NULL),(27,6,11604,27500,2,0,NULL),(28,6,11623,27500,2,1,NULL),(29,6,12149,27500,2,1,NULL),(30,6,11597,27500,2,1,NULL);
 /*!40000 ALTER TABLE `tv_transponders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -832,7 +835,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Админ','Сайта','Киев, Украина','2222222222','admin@treadtrack.net','$2y$10$fzFJ5/U0ch0/ViLy.MRvM.HLsSgUrOh6zAoTjhoE/OJCVxE/0XKU.','65FyaI7gk6CeNUiZlVZWFXFBJ09H8aLLAzlRbRQWSLLkYshGJvQQ4QCnrWmc',0,'2015-06-07 11:27:14','2015-08-01 12:35:10'),(2,'Алексей',NULL,NULL,NULL,'test1@treadtrack.net','$2y$10$Nk6DZ918o9zMDRqQn6gabOVjyWS1VFNAIWrFHZWEBleAvzB4K/VMB.',NULL,0,'2015-06-07 11:27:26','2015-06-07 11:27:26'),(3,'Алексей',NULL,NULL,NULL,'test2@treadtrack.net','$2y$10$j3dqqiOeshBLvrF37Vucr.tuWgg2SLXMOUv.By1VsCxAsVxWZ08c3K','su5opzmiREmijglr7pW9N8d5co5aCQuFtcuAh2oTLyhes0uNcN5fEY41XUya',0,'2015-06-07 11:44:03','2015-06-07 19:30:20'),(4,'Иван','Иванов','Киев, Украина','2222222222','test3@treadtrack.net','$2y$10$KkL78Ive/Xd9/5YsfstBb.gPaEOg/jXvXGsGiqUzViqCYG/egSHLY.',NULL,0,'2015-06-16 18:19:39','2015-06-16 18:19:39'),(5,'Петр','Богдан','Киев, Украина','2222222222','test4@treadtrack.net','$2y$10$s.NMAWaomOV/0FJS8sHiNOxlXX8rCwrdIY5ESWjWQzR5Q9A99Un1eS',NULL,0,'2015-06-21 06:55:05','2015-06-21 06:55:05'),(6,'Петр','Богдан','Киев, Украина','2222222222','test5@treadtrack.net','$2y$10$4uSPec7VXRj4nkEpdXblEZO497jwAqVVVJ1SCjCxBqpLhCfTS9Hg16',NULL,0,'2015-06-21 06:59:28','2015-06-21 06:59:28'),(7,'Петр','Богдан','Киев, Украина','2222222222','test6@treadtrack.net','$2y$10$OexR8Yd8Du6E07A.XCtUqepHoXMmeNrskdPwX7A7jj8Pl8GTRFF6wW',NULL,0,'2015-06-21 07:00:51','2015-06-21 07:00:51'),(8,'Петр','Богдан','Киев, Украина','2222222222','test7@treadtrack.net','$2y$10$AutGdhUE2XCLhlt88K5yg.jd3VPdQgbjMyGrGUc/4Tmn7DwFfGYyAu',NULL,0,'2015-06-21 07:42:49','2015-06-21 07:42:49'),(9,'Петр','Богдан','Киев, Украина','2222222222','test8@treadtrack.net','$2y$10$If0SVIFGg3boUt72KbC96.XNoUfPN6Kydvr4aiV5qfZxtMlqFgtjZ.',NULL,0,'2015-06-21 07:44:42','2015-06-21 07:44:42'),(10,'Петр','Богдан','Киев, Украина','2222222222','test9@treadtrack.net','$2y$10$wqW9hB47QKeQDBfOGtgHToeOHRe/IT48vsj1z7jpxoHeJzoe7/CeF2',NULL,0,'2015-06-21 07:46:00','2015-06-21 07:46:00'),(11,'Богдан','Костенко','Киев, Украина','2222222222','test10@treadtrack.net','$2y$10$dvmPJBxmsQJQOkgZNBX/tIO3zPjSLcwu2ZZXwlz/.IDy6W2m18upOi',NULL,0,'2015-06-21 08:02:11','2015-06-21 08:02:11'),(12,'Алексей','Богдан','Киев, Украина','2222222222','test11@treadtrack.net','$2y$10$HmMWdM5/4lSeZs/RdR2rQse5TsXlbf64MwOyLF9gI3TZb4greQKQHe',NULL,0,'2015-06-21 08:23:50','2015-06-21 08:23:50'),(13,'Суптеля','Людмила','Запорожье, Украина','2222222222','test12@treadtrack.net','$2y$10$EVKMMwTivtu2n/ARg2ZoTNu0PVoUp3eDlomEfAJdDZD/OU5d5GaTj6',NULL,0,'2015-06-21 08:28:14','2015-06-21 08:28:14'),(14,'Алексей','Костенко','Киев, Украина','2222222222','test13@treadtrack.net','$2y$10$HrV6vZoTnJwuu7XyDzhP6N.IqeD/zMWfpyxAmhKR4ERMR32P7tTnh2',NULL,0,'2015-06-25 05:43:29','2015-06-25 05:43:29'),(15,'Алексей','Людмила','Запорожье, Украина','2222222222','test14@treadtrack.net','$2y$10$8IAOAK3NpwVKet/WOjSIphe1FQqgJfCkPLuRKUYGQxircvsVnn3lUO',NULL,0,'2015-06-25 19:20:48','2015-06-25 19:20:48'),(16,'Алексей','Костенко','Запорожье, Украина','2222222222','test15@treadtrack.net','$2y$10$ZvHADW7i.P2azD62ctZ4DuMGlo.xj6zsI/Cu6LjUjhoKj8Bg2fBZaK','22z2fCiTJJmE61NAAEv85VKARZXl3gselMV8LX7NUBq6KHJsGkfRkhjrV2cr',0,'2015-06-29 13:56:31','2015-07-09 19:19:12'),(17,'sdfasd','sadf','Киев, Украина','2222222222','test16@treadtrack.net','$2y$10$YQRXSTb21SHA9H4w1r7oTyuuJ8ATXI0HP7gEF7NclZOmdwPuffx6QW',NULL,0,'2015-07-09 18:48:01','2015-07-09 18:48:01'),(18,'Алексей','Костенко','Запорожье, Украина','2222222222','test17@treadtrack.net','$2y$10$z8Jvxm9ntMTdTMHvqs/2iCuVtcg/ckPsvoiqcx0FixUSRydiVLDUKi',NULL,0,'2015-07-09 19:21:42','2015-07-09 19:21:42'),(19,'Алексей','Костенко','Киев, Украина','2222222222','test18@treadtrack.net','$2y$10$C6g50W4oCaPcfvr6f8S9ud.t7X5tAuEYD8FrSlosn1x4lcqKGPhjb2','Izi9AVRgeDUexDSnhh9V7ibjVsWHUCFKJ3X2Vl2PgfXdxZrQaiHUVDl4A2qH',0,'2015-07-09 19:31:26','2015-07-12 10:57:46'),(20,'Елена','Полищук','Киев, Украина','2222222222','test19@treadtrack.net','$2y$10$DYx0YkSoPeKOsLhJG8Cf3ducv.aL6lp6IzcCt5g3cvWogyjCn4Odpe','1ALZk3w2fmDwnUWhnjH8jN8RISrnSeh7OoIrtvTta3QSv7AB4UKdRYFjcUTE',0,'2015-07-10 17:18:24','2015-07-10 17:27:57'),(23,'Елена','Костенко',NULL,NULL,'elena@treadtrack.net','$2y$10$Z9tEAR/IcElGfLnaiJXSAu5xzChpLvAbzfN9lfPy1fezfXUj1hsEW',NULL,0,'2015-07-26 14:43:02','2015-08-01 11:19:23');
+INSERT INTO `users` VALUES (1,'Админ','Сайта','Киев, Украина','2222222222','admin@treadtrack.net','$2y$10$fzFJ5/U0ch0/ViLy.MRvM.HLsSgUrOh6zAoTjhoE/OJCVxE/0XKU.','otzsyugjZkS9gsYoDVX2RCaxEquPupIkNPzrBHJN0vbEWylelixmeKxpDd9E',0,'2015-06-07 11:27:14','2015-09-03 14:09:07'),(2,'Алексей',NULL,NULL,NULL,'test1@treadtrack.net','$2y$10$Nk6DZ918o9zMDRqQn6gabOVjyWS1VFNAIWrFHZWEBleAvzB4K/VMB.',NULL,0,'2015-06-07 11:27:26','2015-06-07 11:27:26'),(3,'Алексей',NULL,NULL,NULL,'test2@treadtrack.net','$2y$10$j3dqqiOeshBLvrF37Vucr.tuWgg2SLXMOUv.By1VsCxAsVxWZ08c3K','su5opzmiREmijglr7pW9N8d5co5aCQuFtcuAh2oTLyhes0uNcN5fEY41XUya',0,'2015-06-07 11:44:03','2015-06-07 19:30:20'),(4,'Иван','Иванов','Киев, Украина','2222222222','test3@treadtrack.net','$2y$10$KkL78Ive/Xd9/5YsfstBb.gPaEOg/jXvXGsGiqUzViqCYG/egSHLY.',NULL,0,'2015-06-16 18:19:39','2015-06-16 18:19:39'),(5,'Петр','Богдан','Киев, Украина','2222222222','test4@treadtrack.net','$2y$10$s.NMAWaomOV/0FJS8sHiNOxlXX8rCwrdIY5ESWjWQzR5Q9A99Un1eS',NULL,0,'2015-06-21 06:55:05','2015-06-21 06:55:05'),(6,'Петр','Богдан','Киев, Украина','2222222222','test5@treadtrack.net','$2y$10$4uSPec7VXRj4nkEpdXblEZO497jwAqVVVJ1SCjCxBqpLhCfTS9Hg16',NULL,0,'2015-06-21 06:59:28','2015-06-21 06:59:28'),(7,'Петр','Богдан','Киев, Украина','2222222222','test6@treadtrack.net','$2y$10$OexR8Yd8Du6E07A.XCtUqepHoXMmeNrskdPwX7A7jj8Pl8GTRFF6wW',NULL,0,'2015-06-21 07:00:51','2015-06-21 07:00:51'),(8,'Петр','Богдан','Киев, Украина','2222222222','test7@treadtrack.net','$2y$10$AutGdhUE2XCLhlt88K5yg.jd3VPdQgbjMyGrGUc/4Tmn7DwFfGYyAu',NULL,0,'2015-06-21 07:42:49','2015-06-21 07:42:49'),(9,'Петр','Богдан','Киев, Украина','2222222222','test8@treadtrack.net','$2y$10$If0SVIFGg3boUt72KbC96.XNoUfPN6Kydvr4aiV5qfZxtMlqFgtjZ.',NULL,0,'2015-06-21 07:44:42','2015-06-21 07:44:42'),(10,'Петр','Богдан','Киев, Украина','2222222222','test9@treadtrack.net','$2y$10$wqW9hB47QKeQDBfOGtgHToeOHRe/IT48vsj1z7jpxoHeJzoe7/CeF2',NULL,0,'2015-06-21 07:46:00','2015-06-21 07:46:00'),(11,'Богдан','Костенко','Киев, Украина','2222222222','test10@treadtrack.net','$2y$10$dvmPJBxmsQJQOkgZNBX/tIO3zPjSLcwu2ZZXwlz/.IDy6W2m18upOi',NULL,0,'2015-06-21 08:02:11','2015-06-21 08:02:11'),(12,'Алексей','Богдан','Киев, Украина','2222222222','test11@treadtrack.net','$2y$10$HmMWdM5/4lSeZs/RdR2rQse5TsXlbf64MwOyLF9gI3TZb4greQKQHe',NULL,0,'2015-06-21 08:23:50','2015-06-21 08:23:50'),(13,'Суптеля','Людмила','Запорожье, Украина','2222222222','test12@treadtrack.net','$2y$10$EVKMMwTivtu2n/ARg2ZoTNu0PVoUp3eDlomEfAJdDZD/OU5d5GaTj6',NULL,0,'2015-06-21 08:28:14','2015-06-21 08:28:14'),(14,'Алексей','Костенко','Киев, Украина','2222222222','test13@treadtrack.net','$2y$10$HrV6vZoTnJwuu7XyDzhP6N.IqeD/zMWfpyxAmhKR4ERMR32P7tTnh2',NULL,0,'2015-06-25 05:43:29','2015-06-25 05:43:29'),(15,'Алексей','Людмила','Запорожье, Украина','2222222222','test14@treadtrack.net','$2y$10$8IAOAK3NpwVKet/WOjSIphe1FQqgJfCkPLuRKUYGQxircvsVnn3lUO',NULL,0,'2015-06-25 19:20:48','2015-06-25 19:20:48'),(16,'Алексей','Костенко','Запорожье, Украина','2222222222','test15@treadtrack.net','$2y$10$ZvHADW7i.P2azD62ctZ4DuMGlo.xj6zsI/Cu6LjUjhoKj8Bg2fBZaK','22z2fCiTJJmE61NAAEv85VKARZXl3gselMV8LX7NUBq6KHJsGkfRkhjrV2cr',0,'2015-06-29 13:56:31','2015-07-09 19:19:12'),(17,'sdfasd','sadf','Киев, Украина','2222222222','test16@treadtrack.net','$2y$10$YQRXSTb21SHA9H4w1r7oTyuuJ8ATXI0HP7gEF7NclZOmdwPuffx6QW',NULL,0,'2015-07-09 18:48:01','2015-07-09 18:48:01'),(18,'Алексей','Костенко','Запорожье, Украина','2222222222','test17@treadtrack.net','$2y$10$z8Jvxm9ntMTdTMHvqs/2iCuVtcg/ckPsvoiqcx0FixUSRydiVLDUKi',NULL,0,'2015-07-09 19:21:42','2015-07-09 19:21:42'),(19,'Алексей','Костенко','Киев, Украина','2222222222','test18@treadtrack.net','$2y$10$C6g50W4oCaPcfvr6f8S9ud.t7X5tAuEYD8FrSlosn1x4lcqKGPhjb2','Izi9AVRgeDUexDSnhh9V7ibjVsWHUCFKJ3X2Vl2PgfXdxZrQaiHUVDl4A2qH',0,'2015-07-09 19:31:26','2015-07-12 10:57:46'),(20,'Елена','Полищук','Киев, Украина','2222222222','test19@treadtrack.net','$2y$10$DYx0YkSoPeKOsLhJG8Cf3ducv.aL6lp6IzcCt5g3cvWogyjCn4Odpe','1ALZk3w2fmDwnUWhnjH8jN8RISrnSeh7OoIrtvTta3QSv7AB4UKdRYFjcUTE',0,'2015-07-10 17:18:24','2015-07-10 17:27:57'),(23,'Елена','Костенко',NULL,NULL,'elena@treadtrack.net','$2y$10$Z9tEAR/IcElGfLnaiJXSAu5xzChpLvAbzfN9lfPy1fezfXUj1hsEW',NULL,0,'2015-07-26 14:43:02','2015-08-01 11:19:23');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -877,4 +880,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-09-01 19:03:12
+-- Dump completed on 2015-09-03 17:43:57

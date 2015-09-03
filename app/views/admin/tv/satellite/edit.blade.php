@@ -2,11 +2,11 @@
 @section('content')
 <div class="row">
     <!-- left column -->
-    <div class="col-md-12">
+    <div class="col-md-8">
         <!-- general form elements -->
         <div class="box box-primary">
             <div class="box-header">
-                <h3 class="box-title">{{ trans("name.add") }} спутника</h3>
+                <h3 class="box-title">{{ trans("name.edit") }} спутника</h3>
             </div><!-- /.box-header -->
             <!-- form start -->
             {{ Form::open() }}
@@ -28,6 +28,12 @@
                         {{ Form::label('ward', 'Направление')}}
                         {{ Form::select('ward', TvSatellite::WARD, $item->ward, ['class' => 'form-control']); }}
                     </div>
+                    <div class="hide">
+                        <div class="form-group {{ $errors->first('tv_transponders') ? 'has-error' : '' }}">
+                            {{ Form::label('tv_transponders', 'Телеканалы') }}
+                            {{ Form::text('tv_transponders',  $item->tv_transponders, ['id' => 'tv_transponders', 'class' => 'form-control']) }}
+                        </div>
+                    </div>
                 </div><!-- /.box-body -->
 
                 <div class="box-footer">
@@ -36,5 +42,19 @@
             {{ Form::close() }}
         </div><!-- /.box -->
     </div><!--/.col (left) -->
-</div>   <!-- /.row -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="box box-success" id="tv-channel-list">
+                <div class="box-header">
+                    <h3 class="box-title">Транспондеры этого спутника</h3>
+                </div>
+                <div class="box-body">
+                    @foreach (TvTransponder::where('satellite_id', '=', $item->id)->orderBy('frequency')->get() as $transponder)
+                        <div>{{ $transponder->frequency }} | {{ TvTransponder::POLARIZATION[$transponder->polarization] }} | {{ $transponder->sr }}</div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @stop

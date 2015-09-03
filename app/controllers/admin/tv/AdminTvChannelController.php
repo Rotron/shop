@@ -95,11 +95,11 @@ class AdminTvChannelController extends AdminController
         $table->system_encryption = Input::get('system_encryption');
         $table->key = Input::get('key');
         $table->active = Input::get('active', 0);
-
+//var_dump($table->save()); die;
         if ($table->save()) {
             if (Input::get('parameters')) {
                 $parameters = json_decode(Input::get('parameters'));
-                $img = Image::make($parameters->name);
+                $img = Image::make($parameters->name)->trim();
 
                 if ($img->width() > $img->height()) {
                     $img->resize(100, null, function ($constraint) {

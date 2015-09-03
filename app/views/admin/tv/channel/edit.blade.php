@@ -49,6 +49,10 @@
                         {{ Form::text('system_encryption', $item->system_encryption, ['class' => 'form-control', 'placeholder' => 'Система кодирования']) }}
                     </div>
 
+                    <div class="form-group">
+                       {{ Form::text('parameters', '', ['id' => 'parameters', 'class' => 'hide', 'rows' => 3]) }}
+                    </div>
+
                     <div class="checkbox">
                         <label>
                             {{ Form::checkbox('active', '1', $item->active) }} Активность
@@ -74,7 +78,6 @@
                 <div class="row eg-main crop-image">
                     <div class="default">
                         <div class="cropMain"></div>
-                        <div class="cropSlider"></div>
                         <input id="image" name="image" type="file" class="hide">
                     </div>
                 </div>
@@ -107,4 +110,10 @@
         @endif
     });
 </script>
+<style type="text/css">
+    .default .cropMain {
+        width:100px;
+        height:100px;
+    }
+</style>
 @stop

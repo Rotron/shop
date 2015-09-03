@@ -329,7 +329,7 @@
                             </ul>
                         </li>
 
-                        <li class="treeview {{ Request::is('admin/satellite*') || Request::is('admin/transponder*') || Request::is('admin/tv-channel*') || Request::is('admin/packege*') ? 'active' : '' }}">
+                        <li class="treeview {{ Request::is('admin/satellite*') || Request::is('admin/transponder*') || Request::is('admin/tv-channel*') || Request::is('admin/package*') ? 'active' : '' }}">
                             <a href="#">
                                 <i class="fa fa-desktop"></i>
                                 <span>Телевидение</span>
@@ -339,7 +339,7 @@
                                 <li class="{{ Request::is('admin/satellite*') ? 'active' : '' }}"><a href="{{{ URL::to('admin/satellite') }}}"><i class="fa fa-angle-double-right active"></i> Спутники</a></li>
                                 <li class="{{ Request::is('admin/transponder*') ? 'active' : '' }}"><a href="{{{ URL::to('admin/transponder') }}}"><i class="fa fa-angle-double-right"></i> Транспондеры</a></li>
                                 <li class="{{ Request::is('admin/tv-channel*') ? 'active' : '' }}"><a href="{{{ URL::to('admin/tv-channel') }}}"><i class="fa fa-angle-double-right"></i> Телеканалы</a></li>
-                                <li class="{{ Request::is('admin/packege*') ? 'active' : '' }}"><a href="{{{ URL::to('admin/packege') }}}"><i class="fa fa-angle-double-right active"></i> Пакеты телеканалов</a></li>
+                                <li class="{{ Request::is('admin/package*') ? 'active' : '' }}"><a href="{{{ URL::to('admin/package') }}}"><i class="fa fa-angle-double-right active"></i> Пакеты телеканалов</a></li>
                             </ul>
                         </li>
 
@@ -387,10 +387,10 @@
 <script type="text/javascript">
     $(function() {
         @if(Session::has('success'))
-            bootbox.alert('{{ Session::get('success') }}');
+/*            bootbox.alert('{{ Session::get('success') }}');
             window.setTimeout(function(){
                 bootbox.hideAll();
-            }, 5000);
+            }, 5000);*/
         @elseif(Session::has('error'))
             bootbox.alert('{{ Session::get('error') }}');
         @endif

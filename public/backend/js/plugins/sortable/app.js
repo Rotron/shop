@@ -45,7 +45,8 @@
 		};
 	}
 
-
+	var tvChannels = [],
+	tvChannelsInput = document.getElementById('tv-channels');
 	Sortable.create(byId('foo'), {
 		group: "words",
 		animation: 150,
@@ -59,38 +60,70 @@
 				localStorage.setItem(sortable.options.group, order.join('|'));
 			}
 		},
-/*		onAdd: function (evt){ console.log('onAdd.foo:', [evt.item, evt.from]); },
-		onUpdate: function (evt){ console.log('onUpdate.foo:', [evt.item, evt.from]); },
-		onRemove: function (evt){ console.log('onRemove.foo:', [evt.item, evt.from]); },
-		onStart:function(evt){ console.log('onStart.foo:', [evt.item, evt.from]);},
-		onSort:function(evt){ console.log('onStart.foo:', [evt.item, evt.from]);},
-		onEnd: function(evt){ console.log('onEnd.foo:', [evt.item, evt.from]);}*/
 	});
-var tvChannels = [],
-tv = document.getElementById('tv');
+
 	Sortable.create(byId('bar'), {
 		group: "words",
 		animation: 150,
-		onAdd: function (evt){ tvChannels.push(evt.item.dataset.id);
-		 tv.value = JSON.stringify(tvChannels.sort()); /*console.log(tv.value);*/ },
-		//onUpdate: function (evt){ console.log(tvChannels.sort()); },
-		onRemove: function (evt){
-/*			var index = tvChannels.indexOf(evt.item.textContent);
+		onAdd: function (evt){
+			if (tvChannelsInput.value) {
+				tvChannels = JSON.parse(tvChannelsInput.value);
+			}
 
-		if (index > -1) {
-		    tvChannels.splice(index, 1);
-		}*/
-
-//console.log(tvChannels.indexOf(evt.item.dataset.id));
-tvChannels.splice(tvChannels.indexOf(evt.item.dataset.id), 1)
-			tv.value = JSON.stringify(tvChannels);
-		  //delete tvChannels[evt.item.textContent];
-		  //console.log('onRemove.bar:', evt.item.dataset.id); 
+			tvChannels.push(evt.item.dataset.id);
+		
+		 	tvChannelsInput.value =  JSON.stringify(tvChannels.sort());
 		},
-		//onStart:function(evt){ console.log('onStart.foo:', evt.item.textContent);},
-		//onEnd: function(evt){ console.log(tvChannels.sort());}
+
+		onRemove: function (evt){
+			if (tvChannelsInput.value) {
+				tvChannels = JSON.parse(tvChannelsInput.value);
+			}
+			tvChannels.splice(tvChannels.indexOf(evt.item.dataset.id), 1);
+			tvChannelsInput.value = JSON.stringify(tvChannels);
+		},
 	});
 
+
+
+	var tvSatellites = [],
+	tvSatellitesInput= document.getElementById('tv-satellites');
+	Sortable.create(byId('foo-satellite'), {
+		group: "words",
+		animation: 150,
+		store: {
+			get: function (sortable) {
+				var order = localStorage.getItem(sortable.options.group);
+				return order ? order.split('|') : [];
+			},
+			set: function (sortable) {
+				var order = sortable.toArray();
+				localStorage.setItem(sortable.options.group, order.join('|'));
+			}
+		},
+	});
+
+	Sortable.create(byId('bar-satellite'), {
+		group: "words",
+		animation: 150,
+		onAdd: function (evt){
+			if (tvSatellitesInput.value) {
+				tvSatellites = JSON.parse(tvSatellitesInput.value);
+			}
+
+			tvSatellites.push(evt.item.dataset.id);
+		
+		 	tvSatellitesInput.value =  JSON.stringify(tvSatellites.sort());
+		},
+
+		onRemove: function (evt){
+			if (tvSatellitesInput.value) {
+				tvSatellites = JSON.parse(tvSatellitesInput.value);
+			}
+			tvSatellites.splice(tvSatellites.indexOf(evt.item.dataset.id), 1);
+			tvSatellitesInput.value = JSON.stringify(tvSatellites);
+		},
+	});
 
 /*	// Multi groups
 	Sortable.create(byId('multi'), {
@@ -211,6 +244,7 @@ tvChannels.splice(tvChannels.indexOf(evt.item.dataset.id), 1)
 				$scope.sortableConfig['on' + name] = console.log.bind(console, name);
 			});
 		}]);*/
+
 })();
 
 

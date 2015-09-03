@@ -21,6 +21,9 @@
                     <th>ID</th>
                     <th>Фото</th>
                     <th>Название</th>
+                    <th>Язык</th>
+                    <th>Ключ</th>
+                    <th>Стандарт</th>
                     <th>Активность</th>
                 </tr>
             </thead>
@@ -31,6 +34,9 @@
                     <td>{{ $item->id }}</td>
                     <td><img src="/uploads/images/tv/logo/{{ $item->id }}.png?{{ time() }}" alt="{{ $item->title }}" width="50"></td>
                     <td>{{ $item->name }}</td>
+                    <td>{{ TvLanguage::find($item->language_id)->name }}</td>
+                    <td>{{ $item->key }}</td>
+                    <td>{{ $item->system_encryption }}</td>
                     <td class="text-center">
                     {{ Form::checkbox('active[]', $item->id, $item->active, ['class' => 'checkbox', 'disabled' => 'disabled']) }}
                     </td>
@@ -43,6 +49,9 @@
                     <th>ID</th>
                     <th>Фото</th>
                     <th>Название</th>
+                    <th>Язык</th>
+                    <th>Ключ</th>
+                    <th>Стандарт</th>
                     <th>Активность</th>
                 </tr>
             </tfoot>

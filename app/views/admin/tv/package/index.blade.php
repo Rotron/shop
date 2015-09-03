@@ -3,8 +3,8 @@
 <div class="box">
     <div class="box-header margin">
         <div class="pull-left">
-            <form action='{{ URL::to("admin/tv-channel/add") }}'>
-                <button class="btn btn-primary btn-sm">Добавить телеканал</button>
+            <form action='{{ URL::to("admin/package/add") }}'>
+                <button class="btn btn-primary btn-sm">Добавить пакет</button>
             </form>
         </div>
         <div class="pull-right">

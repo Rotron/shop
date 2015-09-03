@@ -1,17 +1,17 @@
 <?php
 
-class AdminPackegeController extends AdminController
+class AdminPackageController extends AdminController
 {
     public function index()
     {
-        return View::make("admin.tv.packege.index", 
-            ['items' => TvPackege::all()]
+        return View::make("admin.tv.package.index", 
+            ['items' => TvPackage::all()]
         );
     }
 
     public function add()
     {
-        return View::make("admin.tv.packege.add");
+        return View::make("admin.tv.package.add");
     }
 
     public function postAdd()
@@ -30,9 +30,9 @@ class AdminPackegeController extends AdminController
                 ->withInput(Input::except(''));
         }
 
-        $table = new TvPackege;
+        $table = new TvPackage;
         $table->name = Input::get('name');
-        $table->packeges_id = Input::get('packege_id');
+        $table->packages_id = Input::get('package_id');
         $table->system_encryption_id = Input::get('system_encryption_id');
         $table->keys_id = Input::get('keys_id');
         $table->active = Input::get('active', 0);
@@ -65,8 +65,8 @@ class AdminPackegeController extends AdminController
 
     public function edit($id)
     {
-        return View::make("admin.tv.packege.edit", 
-            ['item' => TvPackege::find($id)]
+        return View::make("admin.tv.package.edit", 
+            ['item' => TvPackage::find($id)]
         );
     }
 
@@ -87,9 +87,9 @@ class AdminPackegeController extends AdminController
                 ->withInput(Input::except(''));
         }
 
-        $table = TvPackege::find($id);
+        $table = TvPackage::find($id);
         $table->name = Input::get('name');
-        $table->packeges_id = Input::get('packege_id');
+        $table->packages_id = Input::get('package_id');
         $table->system_encryption_id = Input::get('system_encryption_id');
         $table->keys_id = Input::get('keys_id');
         $table->active = Input::get('active', 0);
@@ -133,7 +133,7 @@ class AdminPackegeController extends AdminController
                 return Response::json(['success' => false]);
             }
 
-            $table = TvPackege::find($id);
+            $table = TvPackage::find($id);
             if ($table->delete()) {
                 return Response::json(['success' => true]);
             }

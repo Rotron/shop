@@ -22,7 +22,11 @@
                     </div>
                     <div class="form-group {{ $errors->first('longitude') ? 'has-error' : '' }}">
                         {{ Form::label('longitude', 'Долгота') }}
-                        {{ Form::text('longitude', '', ['class' => 'form-control', 'placeholder' => '4 W']) }}
+                        {{ Form::text('longitude', '', ['class' => 'form-control', 'placeholder' => '4']) }}
+                    </div>
+                    <div class="form-group {{ $errors->first('ward') ? 'has-error' : '' }}">
+                        {{ Form::label('ward', 'Направление')}}
+                        {{ Form::select('ward', TvSatellite::WARD, '', ['class' => 'form-control']); }}
                     </div>
                 </div><!-- /.box-body -->
 

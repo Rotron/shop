@@ -14,7 +14,7 @@
                   @endforeach
                 @endif
                 <div class="row">
-                    <div class="col-md-2 col-sm-2">
+                    <div class="col-md-4 col-sm-4">
                         <div class="form-group {{ $errors->first('satellite_id') ? 'has-error' : '' }}">
                             {{ Form::label('satellite_id', 'Спутник')}}
                             {{ Form::select('satellite_id', TvSatellite::lists('name', 'id'), '', ['class' => 'form-control', 'placeholder' => 'Amos 2/3']); }}
@@ -42,13 +42,13 @@
                         </div>
                     </div>
 
-                    <div class="col-md-1 col-sm-1">
+                    <div class="col-md-2 col-sm-2">
                         <div class="form-group {{ $errors->first('fec') ? 'has-error' : '' }}">
                             {{ Form::label('fec', 'FEC')}}
-                            {{ Form::select('fec', TvTransponder::FEC, '', ['class' => 'form-control']); }}
+                            {{ Form::select('fec', TvTransponder::FEC, '', ['id' => 'tv_channels', 'class' => 'form-control']); }}
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-3">
+                    <div class="hide">
                         <div class="form-group {{ $errors->first('tv-channels') ? 'has-error' : '' }}">
                             {{ Form::label('tv-channels', 'Телеканалы') }}
                             {{ Form::text('tv-channels',  '', ['class' => 'form-control']) }}

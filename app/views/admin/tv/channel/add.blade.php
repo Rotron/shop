@@ -77,7 +77,6 @@
                 <div class="row eg-main crop-image">
                     <div class="default">
                         <div class="cropMain"></div>
-                        <div class="cropSlider"></div>
                         <input id="image" name="image" type="file" class="hide">
                     </div>
                 </div>
@@ -111,4 +110,10 @@
         @endif
     });
 </script>
+<style type="text/css">
+    .default .cropMain {
+        width:100px;
+        height:100px;
+    }
+</style>
 @stop
