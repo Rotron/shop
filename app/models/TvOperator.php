@@ -1,6 +1,6 @@
 <?php
 
-class Operator extends Main 
+class TvOperator extends Main 
 {
   public $timestamps = false;
 }

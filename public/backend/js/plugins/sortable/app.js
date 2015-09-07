@@ -88,7 +88,7 @@
 
 	var tvSatellites = [],
 	tvSatellitesInput= document.getElementById('tv-satellites');
-	Sortable.create(byId('foo-satellite'), {
+	Sortable.create(byId('foo-satellites'), {
 		group: "words",
 		animation: 150,
 		store: {
@@ -103,7 +103,7 @@
 		},
 	});
 
-	Sortable.create(byId('bar-satellite'), {
+	Sortable.create(byId('bar-satellites'), {
 		group: "words",
 		animation: 150,
 		onAdd: function (evt){
@@ -122,6 +122,47 @@
 			}
 			tvSatellites.splice(tvSatellites.indexOf(evt.item.dataset.id), 1);
 			tvSatellitesInput.value = JSON.stringify(tvSatellites);
+		},
+	});
+
+
+
+	var tvPackages = [],
+	tvPackagesInput= document.getElementById('tv-packages');
+	Sortable.create(byId('foo-packages'), {
+		group: "words",
+		animation: 150,
+		store: {
+			get: function (sortable) {
+				var order = localStorage.getItem(sortable.options.group);
+				return order ? order.split('|') : [];
+			},
+			set: function (sortable) {
+				var order = sortable.toArray();
+				localStorage.setItem(sortable.options.group, order.join('|'));
+			}
+		},
+	});
+
+	Sortable.create(byId('bar-packages'), {
+		group: "words",
+		animation: 150,
+		onAdd: function (evt){
+			if (tvPackagesInput.value) {
+				tvPackages = JSON.parse(tvPackagesInput.value);
+			}
+
+			tvPackages.push(evt.item.dataset.id);
+		
+		 	tvPackagesInput.value =  JSON.stringify(tvPackages.sort());
+		},
+
+		onRemove: function (evt){
+			if (tvPackagesInput.value) {
+				tvPackages = JSON.parse(tvPackagesInput.value);
+			}
+			tvPackages.splice(tvPackages.indexOf(evt.item.dataset.id), 1);
+			tvPackagesInput.value = JSON.stringify(tvPackages);
 		},
 	});
 

@@ -19,8 +19,8 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Фото</th>
                     <th>Название</th>
+                    <th>Оператор</th>
                     <th>Активность</th>
                 </tr>
             </thead>
@@ -29,8 +29,8 @@
                 @foreach ($items as $item)
                 <tr class="fields">
                     <td>{{ $item->id }}</td>
-                    <td><img src="/uploads/images/tv/logo/{{ $item->id }}.png?{{ time() }}" alt="{{ $item->title }}" width="50"></td>
                     <td>{{ $item->name }}</td>
+                    <td>{{ TvOperator::find($item->operator_id)->name }}</td>
                     <td class="text-center">
                     {{ Form::checkbox('active[]', $item->id, $item->active, ['class' => 'checkbox', 'disabled' => 'disabled']) }}
                     </td>
@@ -41,8 +41,8 @@
             <tfoot>
                 <tr>
                     <th>ID</th>
-                    <th>Фото</th>
                     <th>Название</th>
+                    <th>Оператор</th>
                     <th>Активность</th>
                 </tr>
             </tfoot>

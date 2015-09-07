@@ -14,48 +14,39 @@
                   @endforeach
                 @endif
                 <div class="row">
-                    <div class="col-md-4 col-sm-4">
-                        <div class="form-group {{ $errors->first('satellite_id') ? 'has-error' : '' }}">
-                            {{ Form::label('satellite_id', 'Спутник')}}
-                            {{ Form::select('satellite_id', TvSatellite::lists('name', 'id'), '', ['class' => 'form-control', 'placeholder' => 'Amos 2/3']); }}
+                    <div class="col-md-6 col-sm-6">
+                        <div class="form-group {{ $errors->first('name') ? 'has-error' : '' }}">
+                            {{ Form::label('name', 'Насвание') }}
+                            {{ Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Стандарт']) }}
                         </div>
                     </div>
 
-                    <div class="col-md-2 col-sm-2">
-                        <div class="form-group {{ $errors->first('frequency') ? 'has-error' : '' }}">
-                            {{ Form::label('frequency', 'Частота') }}
-                            {{ Form::text('frequency', '', ['class' => 'form-control', 'placeholder' => '10722']) }}
+                    <div class="col-md-6 col-sm-6">
+                        <div class="form-group {{ $errors->first('operator_id') ? 'has-error' : '' }}">
+                            {{ Form::label('operator_id', 'Оператор')}}
+                            {{ Form::select('operator_id', TvOperator::lists('name', 'id'), '', ['class' => 'form-control']); }}
                         </div>
                     </div>
 
-                    <div class="col-md-2 col-sm-2">
-                        <div class="form-group {{ $errors->first('polarization') ? 'has-error' : '' }}">
-                            {{ Form::label('polarization', 'Поляризация')}}
-                            {{ Form::select('polarization', TvTransponder::POLARIZATION, '', ['class' => 'form-control']); }}
-                        </div>
+                    <div class="checkbox">
+                        <label>
+                            {{ Form::checkbox('active', '1', '') }} Активность
+                        </label>
                     </div>
 
-                    <div class="col-md-2 col-sm-2">
-                        <div class="form-group {{ $errors->first('sr') ? 'has-error' : '' }}">
-                            {{ Form::label('sr', 'Скорость') }}
-                            {{ Form::text('sr',  '', ['class' => 'form-control', 'placeholder' => '27500']) }}
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 col-sm-2">
-                        <div class="form-group {{ $errors->first('fec') ? 'has-error' : '' }}">
-                            {{ Form::label('fec', 'FEC')}}
-                            {{ Form::select('fec', TvTransponder::FEC, '', ['class' => 'form-control']) }}
+                    <div class="hide">
+                        <div class="form-group {{ $errors->first('tv_channels') ? 'has-error' : '' }}">
+                            {{ Form::text('tv_channels',  '', ['id' => 'tv-channels', 'class' => 'form-control']) }}
                         </div>
                     </div>
                     <div class="hide">
-                        <div class="form-group {{ $errors->first('tv-channels') ? 'has-error' : '' }}">
-                            {{ Form::text('tv-channels',  '', ['id' => 'tv-channels', 'class' => 'form-control']) }}
+                        <div class="form-group {{ $errors->first('tv_satellites') ? 'has-error' : '' }}">
+                            {{ Form::text('tv_satellites',  '', ['id' => 'tv-satellites', 'class' => 'form-control']) }}
                         </div>
                     </div>
                     <div class="hide">
-                        <div class="form-group {{ $errors->first('tv-satellites') ? 'has-error' : '' }}">
-                            {{ Form::text('tv-satellites',  '', ['id' => 'tv-satellites', 'class' => 'form-control']) }}
+                        <div class="form-group {{ $errors->first('tv_packages') ? 'has-error' : '' }}">
+                            {{ Form::text('tv_packages',  '', ['id' => 'tv-packages', 'class' => 'form-control']) }}
                         </div>
                     </div>
                 </div>
@@ -74,6 +65,7 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#channels" data-toggle="tab">Телеканалы</a></li>
                 <li><a href="#satellites" data-toggle="tab">Спутники</a></li>
+                <li><a href="#packages" data-toggle="tab">Пакеты</a></li>
             </ul>
             <div class="tab-content">
                 <!-- Font Awesome icons -->
@@ -109,7 +101,7 @@
                                 <div class="box-header">
                                     <h3 class="box-title">Все спутники</h3>
                                 </div>
-                                <ol id="foo-satellite" class="list">
+                                <ol id="foo-satellites" class="list">
                                 @foreach (TvSatellite::all() as $item)
                                     <li class="border" data-id="{{ $item->id }}"> <span>{{ $item->name }}</span></li>
                                 @endforeach
@@ -122,7 +114,33 @@
                                     <h3 class="box-title">Спутники этого пакета</h3>
                                 </div>
 
-                                <ol id="bar-satellite" class="list">
+                                <ol id="bar-satellites" class="list">
+                                </ol>
+                            </div>
+                        </div>    
+                    </div>
+                </div><!-- /#ion-icons -->
+                <div class="tab-pane" id="packages" >
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title">Все пакеты</h3>
+                                </div>
+                                <ol id="foo-packages" class="list">
+                                @foreach (TvPackage::all() as $item)
+                                    <li class="border" data-id="{{ $item->id }}"> <span>{{ $item->name }}</span></li>
+                                @endforeach
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box box-success" placeholder="ssss">
+                                <div class="box-header">
+                                    <h3 class="box-title">Спутники этого пакета</h3>
+                                </div>
+
+                                <ol id="bar-packages" class="list">
                                 </ol>
                             </div>
                         </div>    
@@ -137,9 +155,7 @@
 <script src="{{ asset('/backend/js/plugins/sortable/app.js') }}"></script>
 <script type="text/javascript">
     $(function(){
-        console.log($('#foo').height(), $('#bar').height());
         $('#bar').height($('#foo').height());
-                console.log($('#foo').height(), $('#bar').height());
     })
 </script>
 
