@@ -45,7 +45,7 @@
                     <div class="col-md-2 col-sm-2">
                         <div class="form-group {{ $errors->first('fec') ? 'has-error' : '' }}">
                             {{ Form::label('fec', 'FEC')}}
-                            {{ Form::select('fec', TvTransponder::FEC, '', ['id' => 'tv_channels', 'class' => 'form-control']); }}
+                            {{ Form::select('fec', TvTransponder::FEC, '', ['id' => 'tv-channels', 'class' => 'form-control']); }}
                         </div>
                     </div>
                     <div class="hide">

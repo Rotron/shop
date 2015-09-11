@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header">
-                <h3 class="box-title">{{ trans("name.add") }} пакета</h3>
+                <h3 class="box-title">{{ trans("name.edit") }} пакета</h3>
             </div>
             {{ Form::open() }}
             <div class="box-body">
@@ -16,22 +16,23 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-6">
                         <div class="form-group {{ $errors->first('name') ? 'has-error' : '' }}">
-                            {{ Form::label('name', 'Насвание') }}
+                            {{ Form::label('name', 'Название') }}
                             {{ Form::text('name', $item->name, ['class' => 'form-control', 'placeholder' => 'Стандарт']) }}
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-sm-6">
+                    <div class="col-md-5 col-sm-5">
                         <div class="form-group {{ $errors->first('operator_id') ? 'has-error' : '' }}">
-                            {{ Form::label('operator_id', 'Оператор')}}
+                            {{ Form::label('operator_id', 'Оператор') }}
                             {{ Form::select('operator_id', TvOperator::lists('name', 'id'), $item->operator_id, ['class' => 'form-control']); }}
                         </div>
                     </div>
-
-                    <div class="checkbox">
-                        <label>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="form-group {{ $errors->first('active') ? 'has-error' : '' }}">
                             {{ Form::checkbox('active', '1', $item->active) }} Активность
-                        </label>
+                        </div>
                     </div>
 
                     <div class="hide">
@@ -117,7 +118,7 @@
                                 <ol id="foo-satellites" class="list">
                                 @foreach (TvSatellite::all() as $satellite)
                                     @if ( !is_array($tvSatellites) || array_search($satellite->id, $tvSatellites) === false)
-                                    <li class="border" data-id="{{ $satellite->id }}"> <span>{{ $satellite->name }}</span></li>
+                                    <li class="border" data-id="{{ $satellite->id }}"> <span>{{ $satellite->name }} - {{ $satellite->longitude }}{{ TvSatellite::WARD[$satellite->ward] }}</span></li>
                                     @endif
                                 @endforeach
                                 </ol>
@@ -131,7 +132,7 @@
                                 <ol id="bar-satellites" class="list">
                                 @foreach (TvSatellite::all() as $satellite)
                                     @if ( is_array($tvSatellites) && array_search($satellite->id, $tvSatellites) !== false)
-                                    <li class="border" data-id="{{ $satellite->id }}"> <span>{{ $satellite->name }}</span></li>
+                                    <li class="border" data-id="{{ $satellite->id }}"> <span>{{ $satellite->name }} - {{ $satellite->longitude }}{{ TvSatellite::WARD[$satellite->ward] }}</span></li>
                                     @endif
                                 @endforeach
                                 </ol>
@@ -158,7 +159,7 @@
                         <div class="col-md-6">
                             <div class="box box-success" placeholder="ssss">
                                 <div class="box-header">
-                                    <h3 class="box-title">Спутники этого пакета</h3>
+                                    <h3 class="box-title">Пакеты этого пакета</h3>
                                 </div>
 
                                 <ol id="bar-packages" class="list">

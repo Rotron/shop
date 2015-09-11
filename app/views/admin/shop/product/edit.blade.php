@@ -29,6 +29,10 @@
                         {{ Form::label('category_id', 'Категория')}} 
                         {{ Form::select('category_id', $categories, isset(ProductCategory::where('product_id', '=', $item->id)->first()->category_id) ? ProductCategory::where('product_id', '=', $item->id)->first()->category_id : '', ['class' => 'form-control']); }}
                     </div>
+                    <div class="form-group {{ $errors->first('package_id') ? 'has-error' : '' }}">
+                        {{ Form::label('package_id', 'Пакет телеканалов')}} 
+                        {{ Form::select('package_id', $tvPackages, $item->package_id, ['class' => 'form-control']); }}
+                    </div>
                     <div class="form-group {{ $errors->first('name') ? 'has-error' : '' }}">
                         {{ Form::label('name', 'Название')}}
                         {{ Form::text('name', $item->name, ['class' => 'form-control', 'placeholder' => 'Название']) }}

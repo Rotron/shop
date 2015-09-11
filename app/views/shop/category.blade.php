@@ -438,7 +438,7 @@
                             <div class="product-item">
                                 <!--div class="ribbon red"><span>sale</span></div--> 
                                 <div class="image">
-                                    <img alt="" src="{{ asset('images/blank.gif') }}" data-echo='{{ asset("uploads/images/product/" . $product->id . "_1_big.png") }}' />
+                                    <a href='{{ asset("product/$product->link") }}'><img alt="{{ $product->name }}" src="{{ asset('images/blank.gif') }}" data-echo='{{ asset("uploads/images/product/" . $product->id . "_1_big.png") }}' /></a>
                                 </div>
                                 <div class="body">
                                     <!--div class="label-discount green">-50% sale</div-->

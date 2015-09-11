@@ -29,6 +29,10 @@
                         {{ Form::label('category_id', 'Категория')}}
                         {{ Form::select('category_id', $categories, null, ['class' => 'form-control']); }}
                     </div>
+                    <div class="form-group {{ $errors->first('package_id') ? 'has-error' : '' }}">
+                        {{ Form::label('package_id', 'Пакет телеканалов')}} 
+                        {{ Form::select('package_id', $tvPackages, '', ['class' => 'form-control']); }}
+                    </div>
                     <div class="form-group {{ $errors->first('name') ? 'has-error' : '' }}">
                         {{ Form::label('name', 'Название')}}
                         {{ Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Название']) }}

@@ -33,7 +33,7 @@
                     <td>{{ $item->id }}</td>
                     <td>
                         @if(file_exists("uploads/images/product/" . $item->id . "_1_thumb.png"))
-                        <img src="/uploads/images/product/{{ $item->id }}_1_thumb.png?{{ time() }}" alt="{{ $item->name }}" width="50">
+                        <img src="/uploads/images/product/{{ $item->id }}_1_thumb.png?{{ time() }}" alt="{{ $item->name }}">
                         @endif 
                     </td>
                     <td>{{ $item->name }}</td>

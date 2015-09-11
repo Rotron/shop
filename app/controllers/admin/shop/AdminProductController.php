@@ -40,6 +40,43 @@ class AdminProductController extends AdminController
                     } else {
                         $hash = md5(time());
                         $filename = "{$hash}.png";
+
+                        Input::file('image')->move($path, $filename);
+                        $img = Image::make($path . $filename);
+
+/*                        foreach (Config::get('setting.product.image.size') as $value) {
+                            $img->encode('jpg', 75);
+                            $img->resize(null, $value['h'], function ($constraint) {
+                                $constraint->aspectRatio();
+                            });
+
+                            $img->save($path . $hash . '_' . $value['name'] . '.png');
+                        }*/
+
+                        $img->encode('jpg', 75);
+                        if ($img->width() > $img->height()) {
+                            foreach (Config::get('setting.product.image.size') as $value) {
+
+                                $img->resize($value['w'], null, function ($constraint) {
+                                    $constraint->aspectRatio();
+                                });
+
+                                $img->save($path . $hash . '_' . $value['name'] . '.png');
+                            }
+                        } else {
+                            foreach (Config::get('setting.product.image.size') as $value) {
+                                $img->resize(null, $value['h'], function ($constraint) {
+                                    $constraint->aspectRatio();
+                                });
+
+                                $img->save($path . $hash . '_' . $value['name'] . '.png');
+                            }
+                        }
+
+
+
+/*                        $hash = md5(time());
+                        $filename = "{$hash}.png";
                         Input::file('image')->move($path, $filename);
                         $img = Image::make($path . $filename);
                         if ($img->width() > $img->height()) {
@@ -59,7 +96,7 @@ class AdminProductController extends AdminController
 
                                 $img->save($path . $hash . '_' . $value['name'] . '.png');
                             }
-                        }
+                        }*/
 
                         return Response::json(['success' => true, 'thumb' => asset($path . $hash . '_' . $value['name'] . '.png'), 'tmp' => $hash]);
                     }
@@ -88,6 +125,7 @@ class AdminProductController extends AdminController
                     ->withInput(Input::except(''));
             } else {
                 $table = new Product;
+                $table->package_id       = Input::get('package_id');
                 $table->name             = Input::get('name');
                 $table->stock            = Input::get('stock');
                 $table->price            = Input::get('price');
@@ -141,8 +179,10 @@ class AdminProductController extends AdminController
            $categories["{$category['id']}"] = $category['title'];
         }
 
-        return View::make("admin.product.{$this->action}", 
-            ['action' => $this->action, 'categories' => $categories]
+        $tvPackages = array(0 => '---') + TvPackage::lists('name', 'id');
+
+        return View::make("admin.shop.product.{$this->action}", 
+            ['action' => $this->action, 'categories' => $categories, 'tvPackages' => $tvPackages]
         );
     }
 
@@ -181,14 +221,36 @@ class AdminProductController extends AdminController
                         Input::file('image')->move($path, $filename);
                         $img = Image::make($path . $filename);
 
-                        foreach (Config::get('setting.product.image.size') as $value) {
+/*                        foreach (Config::get('setting.product.image.size') as $value) {
                             $img->encode('jpg', 75);
                             $img->resize(null, $value['h'], function ($constraint) {
                                 $constraint->aspectRatio();
                             });
 
                             $img->save($path . $hash . '_' . $value['name'] . '.png');
+                        }*/
+
+
+                        $img->encode('jpg', 75);
+                        if ($img->width() > $img->height()) {
+                            foreach (Config::get('setting.product.image.size') as $value) {
+
+                                $img->resize($value['w'], null, function ($constraint) {
+                                    $constraint->aspectRatio();
+                                });
+
+                                $img->save($path . $hash . '_' . $value['name'] . '.png');
+                            }
+                        } else {
+                            foreach (Config::get('setting.product.image.size') as $value) {
+                                $img->resize(null, $value['h'], function ($constraint) {
+                                    $constraint->aspectRatio();
+                                });
+
+                                $img->save($path . $hash . '_' . $value['name'] . '.png');
+                            }
                         }
+
 
                         return Response::json(['success' => true, 'thumb' => asset($path . $hash . '_' . $value['name'] . '.png'), 'tmp' => $hash]);
                     }
@@ -246,6 +308,7 @@ class AdminProductController extends AdminController
                     }
                 }
 
+                $table->package_id       = Input::get('package_id');
                 $table->name             = Input::get('name');
                 $table->stock            = Input::get('stock');
                 $table->price            = Input::get('price');
@@ -279,8 +342,10 @@ class AdminProductController extends AdminController
            $categories["{$category['id']}"] = $category['title'];
         }
 
+        $tvPackages = array(0 => '---') + TvPackage::lists('name', 'id');
+//var_dump($tvPackages); die;
         return View::make("admin.shop.product.edit", 
-            ['item' => Product::find($id), 'images' => $table->images, 'name' => $this->name, 'categories' => $categories]
+            ['item' => Product::find($id), 'images' => $table->images, 'name' => $this->name, 'categories' => $categories, 'tvPackages' => $tvPackages]
         );
     }
 

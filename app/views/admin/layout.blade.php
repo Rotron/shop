@@ -315,7 +315,7 @@
                                 <!--li class="{{ Request::is('admin/video*') ? 'active' : '' }}"><a href="{{{ URL::to('admin/video') }}}"><i class="fa fa-angle-double-right"></i> Видео</a></li-->
                             </ul>
                         </li>
-                        <li class="treeview {{ Request::is('admin/category*') || Request::is('admin/product*') || Request::is('admin/order*') ? 'active' : '' }}">
+                        <li class="treeview {{ Request::is('admin/category*') || Request::is('admin/product*') || Request::is('admin/customer*') || Request::is('admin/order*') ? 'active' : '' }}">
                             <a href="#">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Магазин</span>

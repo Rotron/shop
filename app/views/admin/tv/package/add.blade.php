@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-6">
                         <div class="form-group {{ $errors->first('name') ? 'has-error' : '' }}">
-                            {{ Form::label('name', 'Насвание') }}
+                            {{ Form::label('name', 'Название') }}
                             {{ Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Стандарт']) }}
                         </div>
                     </div>
@@ -27,7 +27,8 @@
                             {{ Form::select('operator_id', TvOperator::lists('name', 'id'), '', ['class' => 'form-control']); }}
                         </div>
                     </div>
-
+                </div>
+                <div class="row">
                     <div class="checkbox">
                         <label>
                             {{ Form::checkbox('active', '1', '') }} Активность
@@ -39,11 +40,13 @@
                             {{ Form::text('tv_channels',  '', ['id' => 'tv-channels', 'class' => 'form-control']) }}
                         </div>
                     </div>
+
                     <div class="hide">
                         <div class="form-group {{ $errors->first('tv_satellites') ? 'has-error' : '' }}">
                             {{ Form::text('tv_satellites',  '', ['id' => 'tv-satellites', 'class' => 'form-control']) }}
                         </div>
                     </div>
+
                     <div class="hide">
                         <div class="form-group {{ $errors->first('tv_packages') ? 'has-error' : '' }}">
                             {{ Form::text('tv_packages',  '', ['id' => 'tv-packages', 'class' => 'form-control']) }}
@@ -103,7 +106,7 @@
                                 </div>
                                 <ol id="foo-satellites" class="list">
                                 @foreach (TvSatellite::all() as $item)
-                                    <li class="border" data-id="{{ $item->id }}"> <span>{{ $item->name }}</span></li>
+                                    <li class="border" data-id="{{ $item->id }}"> <span>{{ $item->name }} - {{ $item->longitude }}{{ TvSatellite::WARD[$item->ward] }}</span></li>
                                 @endforeach
                                 </ol>
                             </div>

@@ -2461,7 +2461,7 @@ header .top-cart-row .top-cart-holder .total-price-basket {
 }
 .product-grid-holder .product-item-holder .body {
   margin: 0 34px ;
-  min-height: 107px;
+  min-height: 70px;
   border-bottom: 1px solid #ececec;
 }
 .product-grid-holder .product-item-holder.size-big .body {
@@ -2506,6 +2506,7 @@ header .top-cart-row .top-cart-holder .total-price-basket {
 }
 .product-grid-holder .product-item-holder.size-small .image {
   padding: 0;
+  min-height: 170px
 }
 .product-grid-holder .product-item-holder.size-small .body {
   margin: 0 15px;
@@ -3115,7 +3116,7 @@ header .top-cart-row .top-cart-holder .total-price-basket {
   padding-bottom: 40px;
 }
 #single-product .single-product-gallery-item img {
-  width: 433px;
+/*   width: 400px; */
 }
 #single-product .product-item-holder {
   border: none;

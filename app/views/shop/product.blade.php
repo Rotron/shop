@@ -6,6 +6,10 @@
 
 @section('content')
 <div id="single-product">
+
+
+
+
     <div class="container">
 
          <div class="no-margin col-xs-12 col-sm-6 col-md-5 gallery-holder">
@@ -18,28 +22,28 @@
                 </a>
             </div>
 
-            <!--div class="single-product-gallery-item" id="slide2">
+            <div class="single-product-gallery-item" id="slide2">
                 <a data-rel="prettyphoto" href="images/products/product-gallery-01.jpg">
-                    <img class="img-responsive" alt="" src="{{ asset('/images/blank.gif') }}" data-echo="{{ asset('/uploads/images/shop/product/' . $product->id . '_1_max.png') }}" />
+                    <img class="img-responsive" alt="" src="{{ asset('/images/blank.gif') }}" data-echo="{{ asset('/uploads/images/product/' . $product->id . '_2_max.png') }}" />
                 </a>
             </div>
 
             <div class="single-product-gallery-item" id="slide3">
                 <a data-rel="prettyphoto" href="images/products/product-gallery-01.jpg">
-                    <img class="img-responsive" alt="" src="{{ asset('/images/blank.gif') }}" data-echo="{{ asset('/uploads/images/shop/product/' . $product->id . '_1_max.png') }}" />
+                    <img class="img-responsive" alt="" src="{{ asset('/images/blank.gif') }}" data-echo="{{ asset('/uploads/images/product/' . $product->id . '_3_max.png') }}" />
                 </a>
-            </div-->
+            </div>
         </div>
 
         <div class="single-product-gallery-thumbs gallery-thumbs">
             @if ($product->images)
-            <!--div id="owl-single-product-thumbnails">
+            <div id="owl-single-product-thumbnails">
 				@foreach(explode(',', $product->images) as $key => $image)
                 <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="0" href="#slide{{ $key }}">
-                    <img width="67" height="67" alt="" src="{{ asset('/images/blank.gif') }}" data-echo="{{ asset('/uploads/images/shop/product/' . $image . '_thumb.png') }}" />
+                    <img width="67" height="67" alt="" src="{{ asset('/images/blank.gif') }}" data-echo="{{ asset('/uploads/images/product/' . $image . '_thumb.png') }}" />
                 </a>
 				@endforeach
-            </div-->
+            </div>
             @endif
             <div class="nav-holder left hidden-xs">
                 <a class="prev-btn slider-prev" data-target="#owl-single-product-thumbnails" href="#prev"></a>
@@ -109,11 +113,15 @@
     <div class="container">
         <div class="tab-holder">
             
-            <!--ul class="nav nav-tabs simple" >
+            <ul class="nav nav-tabs simple" >
                 <li class="active"><a href="#description" data-toggle="tab">Описание</a></li>
-                <li><a href="#additional-info" data-toggle="tab">Дополнительная информация</a></li>
-                <li><a href="#reviews" data-toggle="tab">Отзывы (3)</a></li>
-            </ul-->
+                <?php //var_dump($product->package_id)?>
+                @if($product->package_id)
+                <li><a href="#list-tv-channels" data-toggle="tab">Список телеканалов</a></li>
+                @endif
+                <!--li><a href="#additional-info" data-toggle="tab">Дополнительная информация</a></li>
+                <li><a href="#reviews" data-toggle="tab">Отзывы (3)</a></li-->
+            </ul>
 
             <div class="tab-content">
                 <div class="tab-pane active" id="description">
@@ -144,6 +152,73 @@
                         </div>
                     </div-->
                 </div>
+
+                <div class="tab-pane" id="list-tv-channels">
+                    <table>
+                    @if($product->package_id)
+                        @if ($i = 1) @endif
+                        <tr>
+
+                        @foreach(TvSatellite::whereIn('id', json_decode(TvPackage::find($product->package_id)->tv_satellites))->get() as $satellite)
+                            @foreach(TvTransponder::where('satellite_id', $satellite->id)->get() as $key => $transponder)
+                                @foreach(TvChannel::whereIn('id', json_decode($transponder->tv_channels))->get() as $tvChannel)
+                                    <td><div><b>{{ $tvChannel->name }}</b></div><img src="/uploads/images/tv/logo/{{ $tvChannel->id }}.png"></td>
+                                    @if ($i % 4 === 0)
+                                        </tr><tr id="{{ $i }}">
+                                    @endif
+                                    @if ($i++) @endif
+                                @endforeach
+                            @endforeach
+                        @endforeach
+
+                        @foreach(TvPackage::whereIn('id', json_decode(TvPackage::find($product->package_id)->tv_packages))->get() as $package)
+                            @foreach(TvSatellite::whereIn('id', json_decode(TvPackage::find($package->id)->tv_satellites))->get() as $satellite)
+                                @foreach(TvTransponder::where('satellite_id', $satellite->id)->get() as $key => $transponder)
+                                    @foreach(TvChannel::whereIn('id', json_decode($transponder->tv_channels))->get() as $tvChannel)
+                                        <td><div><b>{{ $tvChannel->name }}</b></div><img src="/uploads/images/tv/logo/{{ $tvChannel->id }}.png"></td>
+                                        @if ($i % 4 === 0)
+                                            </tr><tr id="{{ $i }}">
+                                        @endif
+                                        @if ($i++) @endif
+                                    @endforeach
+                                @endforeach
+                            @endforeach
+                        @endforeach
+
+                        @foreach(TvPackage::whereIn('id', json_decode(TvPackage::find($product->package_id)->tv_packages))->get() as $package)
+                            @foreach(TvChannel::whereIn('id', json_decode(TvPackage::find($package->id)->tv_channels))->get() as $tvChannel)
+                                <td><div><b>{{ $tvChannel->name }}</b></div><img src="/uploads/images/tv/logo/{{ $tvChannel->id }}.png"></td>
+                                @if ($i % 4 === 0)
+                                    </tr><tr id="{{ $i }}">
+                                @endif
+                                @if ($i++) @endif
+                            @endforeach
+                        @endforeach
+
+                        @foreach(TvChannel::whereIn('id', json_decode(TvPackage::find($product->package_id)->tv_channels))->get() as $tvChannel)
+                            <td><div><b>{{ $tvChannel->name }}</b></div><img src="/uploads/images/tv/logo/{{ $tvChannel->id }}.png"></td>
+                            @if ($i % 4 === 0)
+                                </tr><tr id="{{ $i }}">
+                            @endif
+                            @if ($i++) @endif
+                        @endforeach
+
+                        </tr>
+                    @endif
+                    </table>
+                    <style type="text/css">
+                        table{
+                            border-collapse:collapse;
+                            border-color:rgb(204,204,204);
+                            text-align:center;
+                        }
+                        td{border:1px solid #E0E0E0; border-color:rgb(204,204,204); border-style:solid;height: 137px; width: 300px;}
+                        .header{height: 40px; vertical-align: bottom;}
+                        .header h3{text-align:center;display: block;padding: 10px 0 5px 0;}
+
+                    </style>
+
+                </div><!-- /.tab-pane #additional-info -->
 
                 <div class="tab-pane" id="additional-info">
                     <ul class="tabled-data">
@@ -194,7 +269,6 @@
                         </div><!-- /.inline -->
                     </div><!-- /.meta-row -->
                 </div><!-- /.tab-pane #additional-info -->
-
 
                 <div class="tab-pane" id="reviews">
                     <div class="comments">

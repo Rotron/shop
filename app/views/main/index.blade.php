@@ -2,8 +2,8 @@
 {{-- Content --}}
 
 @section('slider')
-    @include('main.slider',['kostenko' => 'eeee'])
-@stop    
+    @include('main.slider', ['kostenko' => 'eeee'])
+@stop
 
 @section('content')
 <!-- ============================================================= HEADER : END ============================================================= -->      
@@ -77,11 +77,11 @@
     <div class="container">
         <div class="tab-holder">
             <!-- Nav tabs -->
-            <!--ul class="nav nav-tabs" >
+            <ul class="nav nav-tabs" >
                 <li class="active"><a href="#featured" data-toggle="tab">популярные</a></li>
                 <li><a href="#new-arrivals" data-toggle="tab">новые поступления</a></li>
                 <li><a href="#top-sales" data-toggle="tab">топ продаж</a></li>
-            </ul-->
+            </ul>
 
             <!-- Tab panes -->
             <div class="tab-content">
@@ -92,7 +92,7 @@
                             <div class="product-item">
                                 <!--div class="ribbon red"><span>sale</span></div-->
                                 <div class="image">
-                                    <img alt="" src="{{asset('images/blank.gif')}}" data-echo="{{ asset("uploads/images/product/" . $product->id . "_1_big.png") }}" />
+                                    <a href="{{ asset('product/' . $product->link) }}"><img alt="{{ $product->name }}" src="{{asset('images/blank.gif')}}" data-echo="{{ asset("uploads/images/product/" . $product->id . "_1_big.png") }}" /></a>
                                 </div>
                                 <div class="body">
                                     <!--div class="label-discount green">-50% sale</div-->
@@ -134,7 +134,7 @@
                             <div class="product-item">
                                 <!--div class="ribbon red"><span>sale</span></div-->
                                 <div class="image">
-                                    <img alt="" src="{{asset('images/blank.gif')}}" data-echo="{{ asset("uploads/images/product/" . $product->id . "_1_big.png") }}" />
+                                    <a href="{{ asset('product/' . $product->link) }}"><img alt="" src="{{asset('images/blank.gif')}}" data-echo="{{ asset("uploads/images/product/" . $product->id . "_1_big.png") }}" /></a>
                                 </div>
                                 <div class="body">
                                     <!--div class="label-discount green">-50% sale</div-->
@@ -143,7 +143,7 @@
                                     </div>
                                 </div>
                                 <div class="prices">
-                                    <div class="price-prev"><span>{{ $product->currency_id == 1 ?  $product->price : $product->price * Config::get('setting.exchangeRates') }}</span>грн</div>
+                                    <!--div class="price-prev"><span>{{ $product->currency_id == 1 ?  $product->price : $product->price * Config::get('setting.exchangeRates') }}</span>грн</div-->
                                     <div class="price-current pull-right"><span>{{ $product->currency_id == 1 ?  $product->price : $product->price * Config::get('setting.exchangeRates') }}</span>грн</div>
                                 </div>
 
@@ -178,7 +178,7 @@
                             <div class="product-item">
                                 <!--div class="ribbon red"><span>sale</span></div-->
                                 <div class="image">
-                                    <img alt="" src="{{asset('images/blank.gif')}}" data-echo="{{ asset("uploads/images/product/" . $product->id . "_1_big.png") }}" />
+                                    <a href="{{ asset('product/' . $product->link) }}"><img alt="{{ $product->name }}" src="{{asset('images/blank.gif')}}" data-echo="{{ asset("uploads/images/product/" . $product->id . "_1_big.png") }}" /></a>
                                 </div>
                                 <div class="body">
                                     <!--div class="label-discount green">-50% sale</div-->
@@ -187,7 +187,7 @@
                                     </div>
                                 </div>
                                 <div class="prices">
-                                    <div class="price-prev"><span>{{ $product->currency_id == 1 ?  $product->price : $product->price * Config::get('setting.exchangeRates') }}</span>грн</div>
+                                    <!--div class="price-prev"><span>{{ $product->currency_id == 1 ?  $product->price : $product->price * Config::get('setting.exchangeRates') }}</span>грн</div-->
                                     <div class="price-current pull-right"><span>{{ $product->currency_id == 1 ?  $product->price : $product->price * Config::get('setting.exchangeRates') }}</span>грн</div>
                                 </div>
 
@@ -230,7 +230,7 @@
                     <div class="col-xs-12 col-sm-4 no-margin product-item-holder size-medium hover">
                         <div class="product-item">
                             <div class="image">
-                                <img alt="" src="{{ asset('images/blank.gif') }}" data-echo='{{ asset("uploads/images/product/" . $product->id . "_1_norm.png") }}' />
+                                <a href="{{ asset('product/' . $product->link) }}"><img alt="{{ $product->name }}" src="{{ asset('images/blank.gif') }}" data-echo='{{ asset("uploads/images/product/" . $product->id . "_1_norm.png") }}' /></a>
                             </div>
                             <div class="body">
                                 <div class="label-discount clear"></div>
@@ -265,7 +265,7 @@
                     <div class="col-xs-12 col-sm-4 no-margin product-item-holder size-medium hover">
                         <div class="product-item">
                             <div class="image">
-                                <img alt="" src="{{asset('images/blank.gif')}}" data-echo="{{ asset("uploads/images/product/" . $product->id . "_1_norm.png") }}" />
+                                <a href="{{ asset('product/' . $product->link) }}"><img alt="{{ $product->name }}" src="{{asset('images/blank.gif')}}" data-echo="{{ asset("uploads/images/product/" . $product->id . "_1_norm.png") }}" /></a>
                             </div>
                             <div class="body">
                                 <div class="label-discount clear"></div>
@@ -353,15 +353,16 @@
                 @foreach(Product::take(10)->skip(0)->active()->orderBy('created_at', 'desc')->get() as $product)
                 <div class="no-margin carousel-item product-item-holder size-small hover">
                     <div class="product-item">
-                        <!--div class="ribbon red"><span>sale</span></div--> 
+                        <!--div class="ribbon red"><span>sale</span></div-->
+
                         <div class="image">
-                            <img alt="" src="{{asset('images/blank.gif')}}" data-echo='{{ asset("uploads/images/product/" . $product->id . "_1_norm.png") }}' />
+                            <a href="{{ asset('product/' . $product->link) }}"><img alt="" src="{{asset('images/blank.gif')}}" data-echo='{{ asset("uploads/images/product/" . $product->id . "_1_norm.png") }}' /></a>
                         </div>
                         <div class="body">
                             <div class="title">
                                 <a href="{{ asset('product/' . $product->link) }}">{{ $product->name }}</a>
                             </div>
-                            <div class="brand">Sharp</div>
+                            <!--div class="brand">Sharp</div-->
                         </div>
                         <div class="prices">
                             <div class="price-current text-right"><span>{{ $product->currency_id == 1 ?  $product->price : $product->price * Config::get('setting.exchangeRates') }}</span>грн</div>

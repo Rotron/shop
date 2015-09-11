@@ -51,7 +51,7 @@
                     <div class="hide">
                         <div class="form-group {{ $errors->first('tv_channels') ? 'has-error' : '' }}">
                             {{ Form::label('tv_channels', 'Телеканалы') }}
-                            {{ Form::text('tv_channels',  $item->tv_channels, ['id' => 'tv_channels', 'class' => 'form-control']) }}
+                            {{ Form::text('tv_channels',  $item->tv_channels, ['id' => 'tv-channels', 'class' => 'form-control']) }}
                         </div>
                     </div>
                 </div>
