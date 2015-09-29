@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => false,
+	'username' =>  'treadtrack@gmail.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => false,
+	'password' => 'vclkchieeyfuzjcs',
 
 	/*
 	|--------------------------------------------------------------------------

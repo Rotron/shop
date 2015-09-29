@@ -311,7 +311,7 @@
                                 <li class="{{ Request::is('admin/article*') ? 'active' : '' }}"><a href="{{{ URL::to('admin/article') }}}"><i class="fa fa-angle-double-right active"></i> Статьи</a></li>
                                 <li class="{{ Request::is('admin/page*') ? 'active' : '' }}"><a href="{{{ URL::to('admin/page') }}}"><i class="fa fa-angle-double-right"></i> Страницы</a></li>
                                 <li class="{{ Request::is('admin/post*') ? 'active' : '' }}"><a href="{{{ URL::to('admin/post') }}}"><i class="fa fa-angle-double-right"></i> Блог</a></li>
-                                <li class="{{ Request::is('admin/portfolio*') ? 'active' : '' }}"><a href="#"><i class="fa fa-angle-double-right"></i> Наши работы</a></li>
+                                <!--li class="{{ Request::is('admin/portfolio*') ? 'active' : '' }}"><a href="#"><i class="fa fa-angle-double-right"></i> Наши работы</a></li-->
                                 <!--li class="{{ Request::is('admin/video*') ? 'active' : '' }}"><a href="{{{ URL::to('admin/video') }}}"><i class="fa fa-angle-double-right"></i> Видео</a></li-->
                             </ul>
                         </li>

@@ -16,30 +16,20 @@
     <div class="product-item-holder size-big single-product-gallery small-gallery">
 
         <div id="owl-single-product">
+            @foreach(explode(',', $product->images) as $key => $image)
             <div class="single-product-gallery-item" id="slide1">
                 <a data-rel="prettyphoto">
-                    <img class="img-responsive" alt="" src="{{ asset('/images/blank.gif') }}" data-echo="{{ asset('/uploads/images/product/' . $product->id . '_1_max.png') }}" />
+                    <img class="img-responsive" alt='{{ $product->name }} фото {{ $key }}' src="{{ asset('/images/blank.gif') }}" data-echo="{{ asset('/uploads/images/product/' . $image . '_max.png') }}" />
                 </a>
             </div>
-
-            <div class="single-product-gallery-item" id="slide2">
-                <a data-rel="prettyphoto" href="images/products/product-gallery-01.jpg">
-                    <img class="img-responsive" alt="" src="{{ asset('/images/blank.gif') }}" data-echo="{{ asset('/uploads/images/product/' . $product->id . '_2_max.png') }}" />
-                </a>
-            </div>
-
-            <div class="single-product-gallery-item" id="slide3">
-                <a data-rel="prettyphoto" href="images/products/product-gallery-01.jpg">
-                    <img class="img-responsive" alt="" src="{{ asset('/images/blank.gif') }}" data-echo="{{ asset('/uploads/images/product/' . $product->id . '_3_max.png') }}" />
-                </a>
-            </div>
+            @endforeach
         </div>
 
         <div class="single-product-gallery-thumbs gallery-thumbs">
             @if ($product->images)
             <div id="owl-single-product-thumbnails">
 				@foreach(explode(',', $product->images) as $key => $image)
-                <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="0" href="#slide{{ $key }}">
+                <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="{{ $key }}" href="#slide{{ $key }}">
                     <img width="67" height="67" alt="" src="{{ asset('/images/blank.gif') }}" data-echo="{{ asset('/uploads/images/product/' . $image . '_thumb.png') }}" />
                 </a>
 				@endforeach
